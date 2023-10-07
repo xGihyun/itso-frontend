@@ -1,31 +1,49 @@
-import type { User } from '$lib/types';
+// import type { User } from '$lib/types';
 import type { Actions } from '@sveltejs/kit';
 import { DATABASE_URL } from '$env/static/private';
+import z from 'zod';
 
 export const actions: Actions = {
 	default: async ({ fetch, request }) => {
+		const UserSchema = z.object({
+			first_name: z.string(),
+			middle_name: z.string(),
+			last_name: z.string(),
+			school: z.string(),
+			coach_name: z.string(),
+			category: z.string()
+		});
+
+		// type User = z.infer<typeof UserSchema>;
+
 		const data = await request.formData();
-		const first_name = data.get('first_name')?.toString() || '';
-		const middle_name = data.get('middle_name')?.toString() || '';
-		const last_name = data.get('last_name')?.toString() || '';
-		const school = data.get('school')?.toString() || '';
-		const coach_name = data.get('coach_name')?.toString() || '';
-		const category = data.get('category')?.toString() || '';
+		const school = data.get('school');
+		const coach_name = data.get('coach_name');
+		const category = data.get('category');
+		const limit = Number(data.get('participant_limit'));
 
-		const new_user: User = {
-			first_name,
-			middle_name,
-			last_name,
-			school,
-			coach_name,
-			category
-		};
+		const participants = Array.from({ length: limit }, (_, idx) => {
+			const first_name = data.get(`first_name_${idx}`);
+			const middle_name = data.get(`middle_name_${idx}`);
+			const last_name = data.get(`last_name_${idx}`);
 
-		console.log(new_user);
+			return {
+				first_name,
+				middle_name,
+				last_name,
+				school,
+				coach_name,
+				category
+			};
+		});
+
+		const parsed_users = participants.map((user) => UserSchema.parse(user));
+
+		console.log(parsed_users);
 
 		const response = await fetch(`${DATABASE_URL}/register`, {
 			method: 'POST',
-			body: JSON.stringify(new_user),
+			body: JSON.stringify(parsed_users),
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -36,13 +54,5 @@ export const actions: Actions = {
 		}
 
 		console.log('Successfully registered!');
-		// const result = await response.text();
-		//
-		// console.log(result);
-		// console.log(first_name);
-		// console.log(middle_name);
-		// console.log(last_name);
-		// console.log(school);
-		// console.log(coach_name);
 	}
 };
