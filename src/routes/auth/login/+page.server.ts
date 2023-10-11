@@ -1,4 +1,4 @@
-import { DATABASE_URL } from '$env/static/private';
+import { BACKEND_URL } from '$env/static/private';
 import { redirect, type Actions } from '@sveltejs/kit';
 import z from 'zod';
 
@@ -22,7 +22,7 @@ export const actions: Actions = {
 
 		console.log(parsedUserAuth);
 
-		const response = await fetch(`${DATABASE_URL}/auth/login`, {
+		const response = await fetch(`${BACKEND_URL}/auth/login`, {
 			method: 'POST',
 			body: JSON.stringify(parsedUserAuth),
 			headers: {
