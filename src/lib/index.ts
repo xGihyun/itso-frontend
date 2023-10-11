@@ -12,11 +12,15 @@ export const ROUTES: Route[] = [
 	{
 		name: 'Register',
 		path: '/register'
-	},
-	{
-		name: 'Login',
-		path: '/auth/login'
 	}
+	// {
+	// 	name: 'Login',
+	// 	path: '/auth/login'
+	// },
+	// {
+	// 	name: 'Admin',
+	// 	path: '/admin'
+	// }
 ];
 
 export const CATEGORIES: Map<string, Category> = new Map([
@@ -24,7 +28,7 @@ export const CATEGORIES: Map<string, Category> = new Map([
 		'category_1',
 		{
 			name: 'Category 1',
-			limit: 1
+			limit: 2
 		}
 	],
 	[

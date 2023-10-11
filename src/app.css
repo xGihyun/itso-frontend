@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*::before,
+*::after {
+	font-family: gt-walsheim-pro, sans-serif;
+}
+
+body {
+	@apply bg-background text-white;
+}
+
+@font-face {
+	font-family: gt-walsheim-pro;
+	src: url('./lib/assets/fonts/gt-walsheim-pro/GTWalsheimPro-Regular.ttf');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: gt-walsheim-pro-medium;
+	src: url('./lib/assets/fonts/gt-walsheim-pro/GTWalsheimPro-Medium.ttf');
+	font-display: swap;
+}
+
+.ring-gradient {
+	-webkit-mask: radial-gradient(transparent 89px, #000 90px);
+	mask: radial-gradient(transparent 89px, #000 90px);
+}
+
+.test {
+	flex-shrink: 0;
+	border: 80px solid red;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.border-image-slice {
+	border-image-slice: 1;
+}
+
+.border-gradient {
+	border-image-source: linear-gradient(to right, #fedb29, #ff3c4e, #933062);
+}

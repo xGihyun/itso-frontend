@@ -1,13 +1,13 @@
 // import type { User } from '$lib/types';
 import type { Actions } from '@sveltejs/kit';
-import { DATABASE_URL } from '$env/static/private';
-import z from 'zod';
+import { BACKEND_URL } from '$env/static/private';
+import z, { string } from 'zod';
 
 export const actions: Actions = {
 	default: async ({ fetch, request }) => {
 		const UserSchema = z.object({
 			first_name: z.string(),
-			middle_name: z.string(),
+			middle_name: z.nullable(string()),
 			last_name: z.string(),
 			school: z.string(),
 			coach_name: z.string(),
@@ -41,7 +41,7 @@ export const actions: Actions = {
 
 		console.log(parsed_users);
 
-		const response = await fetch(`${DATABASE_URL}/register`, {
+		const response = await fetch(`${BACKEND_URL}/register`, {
 			method: 'POST',
 			body: JSON.stringify(parsed_users),
 			headers: {
