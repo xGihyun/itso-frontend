@@ -1,3 +1,4 @@
 import Navbar from './Navbar.svelte';
+import Confirmation from './Confirmation.svelte';
 
-export { Navbar };
+export { Confirmation, Navbar };
