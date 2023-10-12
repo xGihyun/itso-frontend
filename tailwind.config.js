@@ -12,6 +12,7 @@ export default {
 			},
 			boxShadow: {
 				rect: 'rgba(0, 0, 0, 0.6) 0px 5px 10px',
+				glass: 'rgba(0, 0, 0, 0.25) 0px 5px 10px',
 				ring: 'rgba(0, 0, 0, 0.25) 0px 0px 40px 10px'
 			},
 			dropShadow: {

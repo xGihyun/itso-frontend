@@ -25,24 +25,134 @@ export const ROUTES: Route[] = [
 
 export const CATEGORIES: Map<string, Category> = new Map([
 	[
-		'category_1',
+		'java',
 		{
-			name: 'Category 1',
-			limit: 2
+			name: 'Java',
+			limit: {
+				min: 1,
+				max: 1
+			}
 		}
 	],
 	[
-		'category_2',
+		'c_sharp',
 		{
-			name: 'Category 2',
-			limit: 5
+			name: 'C#',
+			limit: {
+				min: 1,
+				max: 1
+			}
 		}
 	],
 	[
-		'category_3',
+		'cybersec',
 		{
-			name: 'Category 3',
-			limit: 3
+			name: 'Cyber Security',
+			limit: {
+				min: 1,
+				max: 1
+			}
+		}
+	],
+	[
+		'webdes',
+		{
+			name: 'Website Design',
+			limit: {
+				min: 1,
+				max: 1
+			}
+		}
+	],
+	[
+		'compnet',
+		{
+			name: 'Computer Networking',
+			limit: {
+				min: 1,
+				max: 1
+			}
+		}
+	],
+	[
+		'digilec',
+		{
+			name: 'Digital Electronics',
+			limit: {
+				min: 1,
+				max: 1
+			}
+		}
+	],
+	[
+		'itquizbee',
+		{
+			name: 'IT Quiz Bee',
+			limit: {
+				min: 1,
+				max: 1
+			}
+		}
+	],
+	[
+		'pcda',
+		{
+			name: 'PC Disassembly and Assembly',
+			limit: {
+				min: 1,
+				max: 1
+			}
+		}
+	],
+
+	[
+		'andrproductivity',
+		{
+			name: 'Android (PRODUCTIVITY)',
+			limit: {
+				min: 2,
+				max: 3
+			}
+		}
+	],
+	[
+		'andrgame',
+		{
+			name: 'Android (GAME)',
+			limit: {
+				min: 2,
+				max: 3
+			}
+		}
+	],
+	[
+		'andriot',
+		{
+			name: 'Android (IOT)',
+			limit: {
+				min: 2,
+				max: 3
+			}
+		}
+	],
+	[
+		'andrmicro',
+		{
+			name: 'Android (MICROFINANCE)',
+			limit: {
+				min: 2,
+				max: 3
+			}
+		}
+	],
+	[
+		'esport',
+		{
+			name: 'E-sport',
+			limit: {
+				min: 5,
+				max: 5
+			}
 		}
 	]
 ]);

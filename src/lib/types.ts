@@ -22,5 +22,8 @@ export const AuthSchema = z.object({
 
 export type Category = {
 	name: string;
-	limit: number;
+	limit: {
+		min: number;
+		max: number;
+	};
 };
