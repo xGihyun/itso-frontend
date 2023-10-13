@@ -74,14 +74,10 @@
 
 	async function email(): Promise<void> {
 		const imageArrayBuffer = await selectedImage.arrayBuffer();
-		const imageBytes = new Uint8Array(imageArrayBuffer);
-		const formData = new FormData();
-
-		formData.append('file', new Blob([imageBytes]));
 
 		const response = await fetch('./api/email', {
 			method: 'POST',
-			body: formData
+			body: imageArrayBuffer
 		});
 
 		if (!response.ok) {
