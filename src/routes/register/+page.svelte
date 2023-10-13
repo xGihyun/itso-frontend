@@ -225,6 +225,13 @@
 								</li>
 							</ol>
 							<img src={gcash} class="object-cover rounded-md" alt="gcash payment instructions" />
+							<p class="mt-2">
+								Choose
+								<span class="uppercase text-amber-400 font-gt-walsheim-pro-medium">
+									management fee services
+								</span>
+								on Payment Types
+							</p>
 						</div>
 					</div>
 
