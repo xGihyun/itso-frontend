@@ -20,7 +20,9 @@
 <!-- </div> -->
 <!---->
 
-<div class="flex flex-col w-full h-full justify-center items-center px-padding">
+<section
+	class="flex flex-col w-full justify-center items-center px-padding relative h-screen min-h-[45rem] lg:min-h-[50rem] pt-16"
+>
 	<img src={itsoBanner} alt="IT Skills Olympics" draggable="false" />
 
 	<a
@@ -29,4 +31,4 @@
 		class="bg-gradient-to-r from-rose-400 to-purple-700 mt-10 px-4 py-2 rounded-full tracking-widest hover:scale-105 transition-transform duration-200"
 		>Register Now</a
 	>
-</div>
+</section>

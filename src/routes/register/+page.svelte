@@ -2,11 +2,17 @@
 	import { enhance } from '$app/forms';
 	import { CATEGORIES } from '$lib';
 	import { ArrowClockwise, Plus, Trash } from '$lib/assets/icons';
-	import { Confirmation } from '$lib/components';
+	import { gcash } from '$lib/assets/images';
+	import { Confirmation, Input } from '$lib/components';
 	import type { Category } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	type SubmitStatus = 'none' | 'pending' | 'success' | 'error';
+
+	let testStatus: { form: SubmitStatus; email: SubmitStatus } = {
+		form: 'none',
+		email: 'none'
+	};
 
 	let submitStatus: SubmitStatus;
 	let participantLimit: {
@@ -44,7 +50,6 @@
 		];
 
 		for (let i = 0; i < value.limit.min - 1; i++) {
-			console.log(value.limit.min);
 			participants.push({
 				first_name: '',
 				middle_name: '',
@@ -63,6 +68,36 @@
 		if (participants.length > participantLimit.min) {
 			participants = participants.filter((_, i) => i !== index);
 		}
+	}
+
+	let selectedImage: File;
+
+	async function email(): Promise<void> {
+		const imageArrayBuffer = await selectedImage.arrayBuffer();
+		const imageBytes = new Uint8Array(imageArrayBuffer);
+		const formData = new FormData();
+
+		formData.append('file', new Blob([imageBytes]));
+
+		const response = await fetch('./api/email', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to send email.');
+		}
+
+		testStatus.email = 'success';
+		console.log('Successfully sent email.');
+	}
+
+	function handleSelectedImage(e: Event) {
+		const target = e.target as HTMLInputElement;
+
+		if (!target.files) return;
+
+		selectedImage = target.files[0];
 	}
 
 	onMount(() => {
@@ -87,7 +122,7 @@
 	<!-- <form class="flex flex-col h-full" method="post" use:enhance> -->
 	<div class="flex flex-col h-full w-full items-center">
 		<div class="max-w-3xl space-y-5">
-			{#if submitStatus === 'success'}
+			{#if testStatus.form === 'success' && testStatus.email === 'success'}
 				<Confirmation />
 			{:else}
 				<div
@@ -121,7 +156,7 @@
 						</p>
 
 						<div class="p-4 space-y-4">
-							<label class="flex gap-4">
+							<label class="flex gap-4 items-center">
 								<input type="radio" name="consent" value="yes" bind:group={isConsented} />
 								<p>
 									Yes, I give my consent to UMak-CCIS to gather and process my personal information
@@ -129,7 +164,7 @@
 								</p>
 							</label>
 
-							<label class="flex gap-4">
+							<label class="flex gap-4 items-center">
 								<input type="radio" name="consent" value="no" bind:group={isConsented} />
 								<p>
 									No, I do not give my consent for UMak-CCIS to gather and process my personal
@@ -150,7 +185,7 @@
 							</h2>
 						</div>
 						<div class="p-4 text-sm lg:text-base">
-							<ol class="list-decimal pl-5 space-y-2">
+							<ol class="list-decimal pl-5 space-y-2 mb-4">
 								<li>
 									<p>
 										A
@@ -186,49 +221,72 @@
 								</li>
 
 								<li>
-									<p class="mb-1">
-										Registration fee must be sent thru GCASH with the following details:
-									</p>
-									<p>
-										GCash number:
-										<span class="text-amber-400 font-gt-walsheim-pro-medium">0920-9723134</span>
-									</p>
-
-									<p>
-										GCash name:
-										<span class="text-amber-400 font-gt-walsheim-pro-medium">Jernell Sanchez</span>
-									</p>
+									<p>Here are the steps sir on how to pay thru our gcash account biller:</p>
 								</li>
 							</ol>
+							<img src={gcash} class="object-cover rounded-md" alt="gcash payment instructions" />
 						</div>
 					</div>
 
 					<form
 						method="post"
 						use:enhance={() => {
-							submitStatus = 'pending';
+							try {
+								// submitStatus = 'pending';
+								testStatus.form = 'pending';
+								testStatus.email = 'pending';
 
-							return async ({ result }) => {
-								if (result.type === 'success') {
-									submitStatus = 'success';
-								} else if (result.type === 'error' || result.type === 'failure') {
-									submitStatus = 'error';
+								email();
 
-									console.error('Failed to submit registration form.');
-									throw new Error('Failed to submit registration form.');
-								} else {
-									submitStatus = 'none';
-								}
-							};
+								return async ({ result }) => {
+									if (result.type === 'success') {
+										testStatus.form = 'success';
+
+										// submitStatus = 'success';
+
+										console.log('Successfully registered.');
+									} else if (result.type === 'error' || result.type === 'failure') {
+										// submitStatus = 'error';
+
+										testStatus.form = 'error';
+
+										console.error('Failed to submit registration form.');
+
+										throw new Error('Failed to submit registration form.');
+									} else {
+										// submitStatus = 'none';
+										testStatus.form = 'none';
+										testStatus.email = 'none';
+
+										throw new Error('Something unexpected happened.');
+									}
+								};
+							} catch (err) {
+								testStatus.form = 'error';
+								testStatus.email = 'error';
+								// submitStatus = 'error';
+								console.error('Failed to register: ' + err);
+							}
 						}}
 					>
 						<div
 							class="flex flex-col p-4 gap-4 backdrop-blur bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.2)] rounded-lg shadow-glass text-sm lg:text-base"
 						>
 							<label class="flex flex-col">
-								<span class="font-gt-walsheim-pro-medium">Category</span>
+								<span class="font-gt-walsheim-pro-medium mb-1">Payment Receipt</span>
+								<input
+									class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
+									type="file"
+									accept="image/*"
+									on:change={handleSelectedImage}
+									required
+								/>
+							</label>
+
+							<label class="flex flex-col">
+								<span class="font-gt-walsheim-pro-medium mb-1">Category</span>
 								<select
-									class="p-2 rounded-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+									class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 									name="category"
 									bind:value={selectedCategory}
 									on:change={() => getParticipantLimit(selectedCategory)}
@@ -243,23 +301,24 @@
 								<div class="font-gt-walsheim-pro-medium flex gap-2 items-center mb-1">
 									<span>Participant Name/s</span>
 									<div
-										class="py-0.5 px-1 rounded-md backdrop-blur bg-[rgba(255,0,0,0.3)] border-[1px] border-[rgba(255,0,0,0.4)] text-xs lg:text-sm"
+										class="py-0.5 px-1 rounded-md backdrop-blur bg-[rgba(255,0,0,0.3)] border-[1px] border-[rgba(255,0,0,0.4)] text-xs lg:text-sm shadow-glass-input"
 									>
 										Min: {participantLimit.min}
 									</div>
 									<div
-										class="py-0.5 px-1 rounded-md backdrop-blur bg-[rgba(255,0,0,0.3)] border-[1px] border-[rgba(255,0,0,0.4)] text-xs lg:text-sm"
+										class="py-0.5 px-1 rounded-md backdrop-blur bg-[rgba(255,0,0,0.3)] border-[1px] border-[rgba(255,0,0,0.4)] text-xs lg:text-sm shadow-glass-input"
 									>
 										Max: {participantLimit.max}
 									</div>
 								</div>
+
 								<div class="flex flex-col gap-2 mb-2">
 									{#each participants as participant, idx (idx)}
 										<div class="flex gap-1 lg:gap-2">
 											<div class="flex gap-1 lg:gap-2 w-full">
 												<input
 													bind:value={participant.first_name}
-													class="w-full p-2 rounded-l-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+													class="w-full rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 													name={`first_name_${idx}`}
 													type="text"
 													placeholder="First"
@@ -267,14 +326,14 @@
 												/>
 												<input
 													bind:value={participant.middle_name}
-													class="w-full p-2 backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+													class="w-full rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 													name={`middle_name_${idx}`}
 													type="text"
 													placeholder="Middle"
 												/>
 												<input
 													bind:value={participant.last_name}
-													class="w-full p-2 rounded-r-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+													class="w-full rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 													name={`last_name_${idx}`}
 													type="text"
 													placeholder="Last"
@@ -283,7 +342,7 @@
 											</div>
 											{#if participantLimit.min !== participantLimit.max}
 												<button
-													class={`p-2 bg-red-500 flex justify-center items-center rounded-full w-10 h-10 backdrop-blur bg-[rgba(255,0,0,0.4)] border-[1px] border-[rgba(255,0,0,0.5)] hover:scale-105 transition-[transform,opacity] duration-300 ${
+													class={`p-2 bg-red-500 flex justify-center items-center rounded-full w-10 h-10 backdrop-blur bg-[rgba(255,0,0,0.4)] border-[1px] border-[rgba(255,0,0,0.5)] hover:scale-105 transition-[transform,opacity] duration-300 shadow-glass-input ${
 														participants.length > participantLimit.min
 															? 'opacity-100'
 															: 'opacity-50 hover:scale-100'
@@ -318,8 +377,9 @@
 
 							<label class="flex flex-col">
 								<span class="font-gt-walsheim-pro-medium">School</span>
+								<!-- <Input name="school" placeholder="e.g. University of Makati - Makati" /> -->
 								<input
-									class="p-2 rounded-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+									class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 									name="school"
 									type="text"
 									placeholder="e.g. University of Makati - Makati"
@@ -331,21 +391,21 @@
 								<span class="font-gt-walsheim-pro-medium">Coach</span>
 								<div class="flex flex-col gap-2">
 									<input
-										class="p-2 rounded-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+										class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 										name="coach_name"
 										type="text"
 										placeholder="Name (e.g. Last, First)"
 										required
 									/>
 									<input
-										class="p-2 rounded-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+										class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 										name="coach_email"
 										type="email"
 										placeholder="Email"
 										required
 									/>
 									<input
-										class="p-2 rounded-full backdrop-blur bg-[rgba(255,255,255,0.2)] border-[1px] border-[rgba(255,255,255,0.3)]"
+										class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 										name="coach_contact_number"
 										type="tel"
 										placeholder="Contact # (e.g. 09123456789)"
@@ -357,14 +417,22 @@
 							<input type="number" name="participants_length" value={participants.length} hidden />
 
 							<div class="flex w-full justify-end items-center gap-4">
-								{#if submitStatus === 'pending'}
+								{#if testStatus.form === 'pending' || testStatus.email === 'pending'}
+									{#if testStatus.form === 'pending'}
+										<span class="text-base">Submitting registration...</span>
+									{/if}
+
+									{#if testStatus.email === 'pending'}
+										<span class="text-base">Sending receipt...</span>
+									{/if}
+
 									<ArrowClockwise styles="w-6 h-6 animate-spin" />
-								{:else if submitStatus === 'error'}
+								{:else if testStatus.form === 'error' || testStatus.email === 'error'}
 									<span class="text-base text-red-500 font-gt-walsheim-pro-medium">Error</span>
 								{/if}
 
 								<button
-									class="flex bg-white text-black justify-center w-fit px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300"
+									class="flex bg-white text-black justify-center w-fit px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300 shadow-glass-input"
 									type="submit">Submit</button
 								>
 							</div>

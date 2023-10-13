@@ -14,13 +14,13 @@ body {
 
 @font-face {
 	font-family: gt-walsheim-pro;
-	src: url('./lib/assets/fonts/gt-walsheim-pro/GTWalsheimPro-Regular.ttf');
+	src: url('/fonts/gt-walsheim-pro/GTWalsheimPro-Regular.ttf');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: gt-walsheim-pro-medium;
-	src: url('./lib/assets/fonts/gt-walsheim-pro/GTWalsheimPro-Medium.ttf');
+	src: url('/fonts/gt-walsheim-pro/GTWalsheimPro-Medium.ttf');
 	font-display: swap;
 }
 
@@ -41,4 +41,32 @@ body {
 
 .border-gradient {
 	border-image-source: linear-gradient(to right, #fedb29, #ff3c4e, #933062);
+}
+
+:root {
+	--scrollbar-track: rgb(30, 30, 30);
+	--scrollbar-thumb: rgb(90, 90, 90);
+}
+
+/* Scrollbar */
+/* Firefox only */
+@supports (scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track)) {
+	* {
+		scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+		scrollbar-width: thin;
+	}
+}
+
+/* Other browsers */
+::-webkit-scrollbar {
+	width: 0.25em;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb);
+	border-radius: 100vw;
 }

@@ -3,7 +3,7 @@
 	import { itsoLogoName } from '$lib/assets/images';
 </script>
 
-<header class="fixed top-0 left-0 z-[999] w-full">
+<header class="fixed top-0 left-0 z-[100] w-full">
 	<nav
 		class="w-full flex h-16 px-padding relative items-center bg-background shadow-rect justify-between border-image-slice border-gradient border-b-2"
 	>

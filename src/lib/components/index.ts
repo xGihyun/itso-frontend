@@ -1,4 +1,6 @@
 import Navbar from './Navbar.svelte';
 import Confirmation from './Confirmation.svelte';
+import Background from './Background.svelte';
+import Input from './Input.svelte';
 
-export { Confirmation, Navbar };
+export { Background, Confirmation, Navbar, Input };
