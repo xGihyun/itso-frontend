@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { CATEGORIES } from '$lib';
-	import { ArrowClockwise, Plus, Trash } from '$lib/assets/icons';
+	import { ArrowClockwise, InfoCircle, Plus, Trash } from '$lib/assets/icons';
 	import { gcash } from '$lib/assets/images';
-	import { Confirmation, Input } from '$lib/components';
-	import type { Category } from '$lib/types';
+	import { Confirmation } from '$lib/components';
+	import type { Category, Limit } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	type SubmitStatus = 'none' | 'pending' | 'success' | 'error';
@@ -13,12 +13,7 @@
 		form: 'none',
 		email: 'none'
 	};
-
-	let submitStatus: SubmitStatus;
-	let participantLimit: {
-		min: number;
-		max: number;
-	} = {
+	let participantLimit: Limit = {
 		min: 1,
 		max: 1
 	};
@@ -75,9 +70,14 @@
 	async function email(): Promise<void> {
 		const imageArrayBuffer = await selectedImage.arrayBuffer();
 
+		console.log('Your image: ' + selectedImage.name);
+
 		const response = await fetch('./api/email', {
 			method: 'POST',
-			body: imageArrayBuffer
+			body: imageArrayBuffer,
+			headers: {
+				'Content-Type': 'application/octet-stream'
+			}
 		});
 
 		if (!response.ok) {
@@ -275,8 +275,8 @@
 						<div
 							class="flex flex-col p-4 gap-4 backdrop-blur bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.2)] rounded-lg shadow-glass text-sm lg:text-base"
 						>
-							<label class="flex flex-col">
-								<span class="font-gt-walsheim-pro-medium mb-1">Payment Receipt</span>
+							<label class="flex flex-col gap-1">
+								<span class="font-gt-walsheim-pro-medium">Payment Receipt</span>
 								<input
 									class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 									type="file"
@@ -284,10 +284,15 @@
 									on:change={handleSelectedImage}
 									required
 								/>
+								<p class="text-amber-400 flex gap-1 items-center text-xs lg:text-sm opacity-75">
+									<InfoCircle styles="w-3 h-3" />
+									<span class="text-white">Recommended file types:</span>
+									.png, .jpg
+								</p>
 							</label>
 
-							<label class="flex flex-col">
-								<span class="font-gt-walsheim-pro-medium mb-1">Category</span>
+							<label class="flex flex-col gap-1">
+								<span class="font-gt-walsheim-pro-medium">Category</span>
 								<select
 									class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
 									name="category"
@@ -300,9 +305,9 @@
 								</select>
 							</label>
 
-							<label class="flex flex-col">
-								<div class="font-gt-walsheim-pro-medium flex gap-2 items-center mb-1">
-									<span>Participant Name/s</span>
+							<label class="flex flex-col gap-1">
+								<div class="font-gt-walsheim-pro-medium flex gap-2 items-center">
+									<span class="font-gt-walsheim-pro-medium">Participant Name/s</span>
 									<div
 										class="py-0.5 px-1 rounded-md backdrop-blur bg-[rgba(255,0,0,0.3)] border-[1px] border-[rgba(255,0,0,0.4)] text-xs lg:text-sm shadow-glass-input"
 									>
@@ -378,7 +383,7 @@
 								{/if}
 							</label>
 
-							<label class="flex flex-col">
+							<label class="flex flex-col gap-1">
 								<span class="font-gt-walsheim-pro-medium">School</span>
 								<!-- <Input name="school" placeholder="e.g. University of Makati - Makati" /> -->
 								<input
@@ -390,7 +395,7 @@
 								/>
 							</label>
 
-							<label class="flex flex-col">
+							<label class="flex flex-col gap-1">
 								<span class="font-gt-walsheim-pro-medium">Coach</span>
 								<div class="flex flex-col gap-2">
 									<input

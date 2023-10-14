@@ -5,9 +5,15 @@ export const POST: RequestHandler = async ({ fetch, request }) => {
 	try {
 		const arrayBuffer = await request.arrayBuffer();
 
+		console.log(arrayBuffer);
+
 		const response = await fetch(`${BACKEND_URL}/email`, {
 			method: 'POST',
-			body: arrayBuffer
+			body: arrayBuffer,
+
+			headers: {
+				'Content-Type': 'application/octet-stream'
+			}
 		});
 
 		if (response.ok) {

@@ -24,5 +24,7 @@
 	}
 </script>
 
-<p>Excel file here:</p>
-<button class="bg-red-500 text-white p-2" type="submit" on:click={download}>Download</button>
+<div class="px-padding">
+	<p>Excel file here:</p>
+	<button class="bg-red-500 text-white p-2" type="submit" on:click={download}>Download</button>
+</div>

@@ -21,7 +21,7 @@
 <!---->
 
 <section
-	class="flex flex-col w-full justify-center items-center px-padding relative h-screen min-h-[45rem] lg:min-h-[50rem] pt-16"
+	class="flex flex-col w-full justify-center items-center px-padding relative h-[calc(100vh-4rem)] min-h-[45rem] lg:min-h-[50rem]"
 >
 	<img src={itsoBanner} alt="IT Skills Olympics" draggable="false" />
 

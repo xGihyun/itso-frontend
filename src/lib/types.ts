@@ -20,10 +20,12 @@ export const AuthSchema = z.object({
 	role: z.enum(['user', 'admin'])
 });
 
+export type Limit = {
+	min: number;
+	max: number;
+};
+
 export type Category = {
 	name: string;
-	limit: {
-		min: number;
-		max: number;
-	};
+	limit: Limit;
 };
