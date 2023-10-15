@@ -25,7 +25,11 @@ export const actions: Actions = {
 			const coach_contact_number = data.get('coach_contact_number');
 			const category = data.get('category') as string;
 			const categoryValue = CATEGORIES.get(category);
+
 			const limit = Number(data.get('participants_length'));
+			const send_email = data.get('send_email') as string;
+
+			console.log(send_email);
 
 			const participants = Array.from({ length: limit }, (_, idx) => {
 				const first_name = data.get(`first_name_${idx}`);
@@ -62,8 +66,32 @@ export const actions: Actions = {
 			}
 
 			console.log('Successfully registered participants!');
+
+			if (send_email === 'true') {
+				const receipt = data.get('file') as Blob;
+
+				console.log('Sending receipt via email...');
+
+				const response = await fetch(
+					`${BACKEND_URL}/email?school=${parsed_users[0].school}&contact_person=${parsed_users[0].coach_name}&contact_number=${parsed_users[0].coach_contact_number}`,
+					{
+						method: 'POST',
+						body: receipt,
+						headers: {
+							'Content-Type': 'application/octet-stream'
+						}
+					}
+				);
+
+				if (response.status !== 200) {
+					throw new Error('Failed to send email.');
+				}
+
+				console.log('Successfully sent email!');
+			}
 		} catch (err) {
 			console.error('An unexpected error occurred:', err);
+			throw new Error('Something went wrong.');
 		}
 	}
 };

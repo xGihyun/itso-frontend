@@ -18,6 +18,7 @@
 		max: 1
 	};
 	let isConsented: string;
+	let autoSendEmail: boolean;
 	let selectedCategory: string;
 	let participants: { first_name: string; middle_name: string; last_name: string }[] = [
 		{
@@ -59,7 +60,7 @@
 		}
 	}
 
-	function removeParticipant(index: number) {
+	function removeParticipant(index: number): void {
 		if (participants.length > participantLimit.min) {
 			participants = participants.filter((_, i) => i !== index);
 		}
@@ -69,18 +70,24 @@
 
 	async function email(): Promise<void> {
 		const imageArrayBuffer = await selectedImage.arrayBuffer();
+		const formData = new FormData();
 
 		console.log('Your image: ' + selectedImage.name);
 
+		formData.append('file', new Blob([imageArrayBuffer]));
+		// formData.append('school', );
+
 		const response = await fetch('./api/email', {
 			method: 'POST',
-			body: imageArrayBuffer,
+			body: formData,
 			headers: {
 				'Content-Type': 'application/octet-stream'
 			}
 		});
 
-		if (!response.ok) {
+		if (response.status !== 200) {
+			console.log('Email request status: ' + response.status);
+			testStatus.email = 'error';
 			throw new Error('Failed to send email.');
 		}
 
@@ -88,7 +95,7 @@
 		console.log('Successfully sent email.');
 	}
 
-	function handleSelectedImage(e: Event) {
+	function handleSelectedImage(e: Event): void {
 		const target = e.target as HTMLInputElement;
 
 		if (!target.files) return;
@@ -110,6 +117,7 @@
 	});
 </script>
 
+<!-- Code is very bad, all made in a rush -->
 <div class="px-padding py-10">
 	<h1 class="font-gt-walsheim-pro-medium text-2xl lg:text-5xl text-center my-10">
 		12th IT Skills Olympics Registration
@@ -118,7 +126,9 @@
 	<!-- <form class="flex flex-col h-full" method="post" use:enhance> -->
 	<div class="flex flex-col h-full w-full items-center">
 		<div class="max-w-3xl space-y-5">
-			{#if testStatus.form === 'success' && testStatus.email === 'success'}
+			{#if testStatus.form === 'success' && !autoSendEmail}
+				<Confirmation />
+			{:else if testStatus.form === 'success' && testStatus.email === 'success'}
 				<Confirmation />
 			{:else}
 				<div
@@ -233,17 +243,26 @@
 
 					<form
 						method="post"
-						use:enhance={() => {
+						enctype="multipart/form-data"
+						use:enhance={async ({ formData }) => {
 							try {
 								// submitStatus = 'pending';
 								testStatus.form = 'pending';
-								testStatus.email = 'pending';
+								console.log(testStatus);
 
-								email();
+								if (autoSendEmail) {
+									testStatus.email = 'pending';
+
+									const imageArrayBuffer = await selectedImage.arrayBuffer();
+									formData.append('file', new Blob([imageArrayBuffer]));
+								}
+
+								// email();
 
 								return async ({ result }) => {
 									if (result.type === 'success') {
 										testStatus.form = 'success';
+										testStatus.email = 'success';
 
 										// submitStatus = 'success';
 
@@ -275,22 +294,6 @@
 						<div
 							class="flex flex-col p-4 gap-4 backdrop-blur bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.2)] rounded-lg shadow-glass text-sm lg:text-base"
 						>
-							<label class="flex flex-col gap-1">
-								<span class="font-gt-walsheim-pro-medium">Payment Receipt</span>
-								<input
-									class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
-									type="file"
-									accept="image/*"
-									on:change={handleSelectedImage}
-									required
-								/>
-								<p class="text-amber-400 flex gap-1 items-center text-xs lg:text-sm opacity-75">
-									<InfoCircle styles="w-3 h-3" />
-									<span class="text-white">Recommended file types:</span>
-									.png, .jpg
-								</p>
-							</label>
-
 							<label class="flex flex-col gap-1">
 								<span class="font-gt-walsheim-pro-medium">Category</span>
 								<select
@@ -364,6 +367,7 @@
 										</div>
 									{/each}
 								</div>
+
 								{#if participantLimit.min !== participantLimit.max}
 									<div class="flex w-full justify-end">
 										<button
@@ -422,21 +426,87 @@
 								</div>
 							</label>
 
+							<div class="flex flex-col gap-1">
+								<span class="font-gt-walsheim-pro-medium">Payment Receipt</span>
+								<!-- <div class="flex flex-col gap-1"> -->
+								<!-- 	<span class="font-gt-walsheim-pro-medium">Payment Receipt</span> -->
+								<!-- <p class="flex gap-1 items-center text-xs lg:text-sm opacity-75"> -->
+								<!-- 	<InfoCircle styles="w-3 h-3 text-amber-400" /> -->
+								<!-- 	You can choose to send the email to -->
+								<!-- 	<span class="text-amber-400 font-gt-walsheim-pro-medium"> -->
+								<!-- 		itolympics.secretariat@gmail.com -->
+								<!-- 	</span> -->
+								<!-- 	or send it automatically -->
+								<!-- </p> -->
+								<!-- </div> -->
+
+								<div class="flex flex-col gap-4">
+									<label class="flex items-center gap-4">
+										<input type="radio" name="consent" value={false} bind:group={autoSendEmail} />
+										<p>
+											Manually send receipt to
+											<span class="text-amber-400 font-gt-walsheim-pro-medium">
+												itolympics.secretariat@gmail.com
+											</span>
+											via Gmail (recommended)
+										</p>
+									</label>
+
+									<label class="flex items-center gap-4">
+										<input type="radio" name="consent" value={true} bind:group={autoSendEmail} />
+										<p>Automatically send receipt after submission (experimental)</p>
+									</label>
+
+									<label
+										class={`flex flex-col gap-1 transition-opacity duration-300 ${
+											autoSendEmail ? 'opacity-100' : 'opacity-50'
+										}`}
+									>
+										<input
+											class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
+											type="file"
+											name="file"
+											accept="image/*"
+											on:change={handleSelectedImage}
+											required={autoSendEmail}
+											disabled={!autoSendEmail}
+										/>
+										<p class="text-amber-400 flex gap-1 items-center text-xs lg:text-sm opacity-75">
+											<InfoCircle styles="w-3 h-3" />
+											<span class="text-white">Recommended file types:</span>
+											.png, .jpg
+										</p>
+									</label>
+								</div>
+							</div>
+
 							<input type="number" name="participants_length" value={participants.length} hidden />
+							<input
+								type="text"
+								name="send_email"
+								value={autoSendEmail ? 'true' : 'false'}
+								hidden
+							/>
 
 							<div class="flex w-full justify-end items-center gap-4">
 								{#if testStatus.form === 'pending' || testStatus.email === 'pending'}
 									{#if testStatus.form === 'pending'}
 										<span class="text-base">Submitting registration...</span>
+									{:else if testStatus.form === 'error'}
+										<span class="text-base text-red-500 font-gt-walsheim-pro-medium"
+											>Registration error</span
+										>
 									{/if}
 
 									{#if testStatus.email === 'pending'}
 										<span class="text-base">Sending receipt...</span>
+									{:else if testStatus.email === 'error'}
+										<span class="text-base text-red-500 font-gt-walsheim-pro-medium"
+											>Email error</span
+										>
 									{/if}
 
 									<ArrowClockwise styles="w-6 h-6 animate-spin" />
-								{:else if testStatus.form === 'error' || testStatus.email === 'error'}
-									<span class="text-base text-red-500 font-gt-walsheim-pro-medium">Error</span>
 								{/if}
 
 								<button
