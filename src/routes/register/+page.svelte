@@ -203,14 +203,15 @@
 								</li>
 								<li>
 									<p>
-										Every participant MUST have an assigned COACH to completely represent the
-										school.
+										Every participant MUST have an assigned
+										<span class="text-amber-400 uppercase font-gt-walsheim-pro-medium">coach</span>
+										to completely represent the school.
 									</p>
 								</li>
 								<li>
 									<p>
-										ONE participant for each event shall be allowed except Android Application
-										Competition.
+										<span class="text-amber-400 uppercase font-gt-walsheim-pro-medium">One</span>
+										participant for each event shall be allowed except Android Application Competition.
 									</p>
 								</li>
 
@@ -227,11 +228,13 @@
 								</li>
 
 								<li>
-									<p>Here are the steps sir on how to pay thru our gcash account biller:</p>
+									<p>Here are the steps on how to pay through our GCash account biller:</p>
 								</li>
 							</ol>
 							<img src={gcash} class="object-cover rounded-md" alt="gcash payment instructions" />
-							<p class="mt-2">
+
+							<p class="flex gap-2 items-center mt-4">
+								<InfoCircle styles="w-3 h-3 text-amber-400" />
 								Choose
 								<span class="uppercase text-amber-400 font-gt-walsheim-pro-medium">
 									management fee services
@@ -426,67 +429,77 @@
 								</div>
 							</label>
 
-							<div class="flex flex-col gap-1">
-								<span class="font-gt-walsheim-pro-medium">Payment Receipt</span>
-								<!-- <div class="flex flex-col gap-1"> -->
-								<!-- 	<span class="font-gt-walsheim-pro-medium">Payment Receipt</span> -->
-								<!-- <p class="flex gap-1 items-center text-xs lg:text-sm opacity-75"> -->
-								<!-- 	<InfoCircle styles="w-3 h-3 text-amber-400" /> -->
-								<!-- 	You can choose to send the email to -->
-								<!-- 	<span class="text-amber-400 font-gt-walsheim-pro-medium"> -->
-								<!-- 		itolympics.secretariat@gmail.com -->
-								<!-- 	</span> -->
-								<!-- 	or send it automatically -->
-								<!-- </p> -->
-								<!-- </div> -->
+							<!-- <div class="flex flex-col gap-1"> -->
+							<!-- <span class="font-gt-walsheim-pro-medium">Payment Receipt</span> -->
+							<!-- <div class="flex flex-col gap-1"> -->
+							<!-- 	<span class="font-gt-walsheim-pro-medium">Payment Receipt</span> -->
+							<!-- 	<p class="flex gap-1 items-center text-xs lg:text-sm opacity-75"> -->
+							<!-- 		<InfoCircle styles="w-3 h-3 text-amber-400" /> -->
+							<!-- 		You can choose to send the email to -->
+							<!-- 		<span class="text-amber-400 font-gt-walsheim-pro-medium"> -->
+							<!-- 			itolympics.secretariat@gmail.com -->
+							<!-- 		</span> -->
+							<!-- 		or send it automatically -->
+							<!-- 	</p> -->
+							<!-- </div> -->
 
-								<div class="flex flex-col gap-4">
-									<label class="flex items-center gap-4">
-										<input type="radio" name="consent" value={false} bind:group={autoSendEmail} />
-										<p>
-											Manually send receipt to
-											<span class="text-amber-400 font-gt-walsheim-pro-medium">
-												itolympics.secretariat@gmail.com
-											</span>
-											via Gmail (recommended)
-										</p>
-									</label>
+							<p class="flex gap-2 items-center">
+								<InfoCircle styles="w-3 h-3 text-amber-400" />
+								Please send a copy of your transaction receipt to
+								<a href="mailto:itolympics.secretariat@gmail.com">
+									<span class="text-amber-400 font-gt-walsheim-pro-medium">
+										itolympics.secretariat@gmail.com
+									</span>
+								</a>
+							</p>
 
-									<label class="flex items-center gap-4">
-										<input type="radio" name="consent" value={true} bind:group={autoSendEmail} />
-										<p>Automatically send receipt after submission (experimental)</p>
-									</label>
-
-									<label
-										class={`flex flex-col gap-1 transition-opacity duration-300 ${
-											autoSendEmail ? 'opacity-100' : 'opacity-50'
-										}`}
-									>
-										<input
-											class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input"
-											type="file"
-											name="file"
-											accept="image/*"
-											on:change={handleSelectedImage}
-											required={autoSendEmail}
-											disabled={!autoSendEmail}
-										/>
-										<p class="text-amber-400 flex gap-1 items-center text-xs lg:text-sm opacity-75">
-											<InfoCircle styles="w-3 h-3" />
-											<span class="text-white">Recommended file types:</span>
-											.png, .jpg
-										</p>
-									</label>
-								</div>
-							</div>
+							<!-- 	<div class="flex flex-col gap-4"> -->
+							<!-- 		<label class="flex items-center gap-4"> -->
+							<!-- 			<input type="radio" name="consent" value={false} bind:group={autoSendEmail} /> -->
+							<!-- 			<p> -->
+							<!-- 				Manually send receipt to -->
+							<!-- 				<span class="text-amber-400 font-gt-walsheim-pro-medium"> -->
+							<!-- 					itolympics.secretariat@gmail.com -->
+							<!-- 				</span> -->
+							<!-- 				via Gmail (recommended) -->
+							<!-- 			</p> -->
+							<!-- 		</label> -->
+							<!---->
+							<!-- 		<label class="flex items-center gap-4"> -->
+							<!-- 			<input type="radio" name="consent" value={true} bind:group={autoSendEmail} /> -->
+							<!-- 			<p>Automatically send receipt after submission (experimental)</p> -->
+							<!-- 		</label> -->
+							<!---->
+							<!-- 		<label -->
+							<!-- 			class={`flex flex-col gap-1 transition-opacity duration-300 ${ -->
+							<!-- 				autoSendEmail ? 'opacity-100' : 'opacity-50' -->
+							<!-- 			}`} -->
+							<!-- 		> -->
+							<!-- 			<input -->
+							<!-- 				class="rounded-md bg-[rgba(255,255,255,0.1)] border-[1px] border-[rgba(255,255,255,0.15)] shadow-glass-input" -->
+							<!-- 				type="file" -->
+							<!-- 				name="file" -->
+							<!-- 				accept="image/*" -->
+							<!-- 				on:change={handleSelectedImage} -->
+							<!-- 				required={autoSendEmail} -->
+							<!-- 				disabled={!autoSendEmail} -->
+							<!-- 			/> -->
+							<!-- 			<p class="text-amber-400 flex gap-1 items-center text-xs lg:text-sm opacity-75"> -->
+							<!-- 				<InfoCircle styles="w-3 h-3" /> -->
+							<!-- 				<span class="text-white">Recommended file types:</span> -->
+							<!-- 				.png, .jpg -->
+							<!-- 			</p> -->
+							<!-- 		</label> -->
+							<!-- 	</div> -->
+							<!-- </div> -->
 
 							<input type="number" name="participants_length" value={participants.length} hidden />
-							<input
-								type="text"
-								name="send_email"
-								value={autoSendEmail ? 'true' : 'false'}
-								hidden
-							/>
+							<!-- <input -->
+							<!-- 	type="text" -->
+							<!-- 	name="send_email" -->
+							<!-- 	value={autoSendEmail ? 'true' : 'false'} -->
+							<!-- 	hidden -->
+							<!-- /> -->
 
 							<div class="flex w-full justify-end items-center gap-4">
 								{#if testStatus.form === 'pending' || testStatus.email === 'pending'}
