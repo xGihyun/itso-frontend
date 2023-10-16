@@ -233,14 +233,16 @@
 							</ol>
 							<img src={gcash} class="object-cover rounded-md" alt="gcash payment instructions" />
 
-							<p class="flex gap-2 items-center mt-4">
+							<div class="flex gap-2 items-center mt-4">
 								<InfoCircle styles="w-3 h-3 text-amber-400" />
-								Choose
-								<span class="uppercase text-amber-400 font-gt-walsheim-pro-medium">
-									management fee services
-								</span>
-								on Payment Types
-							</p>
+								<p>
+									Choose
+									<span class="uppercase text-amber-400 font-gt-walsheim-pro-medium">
+										management fee services
+									</span>
+									on Payment Types
+								</p>
+							</div>
 						</div>
 					</div>
 
@@ -443,15 +445,17 @@
 							<!-- 	</p> -->
 							<!-- </div> -->
 
-							<p class="flex gap-2 items-center">
+							<div class="flex gap-2 items-center">
 								<InfoCircle styles="w-3 h-3 text-amber-400" />
-								Please send a copy of your transaction receipt to
-								<a href="mailto:itolympics.secretariat@gmail.com">
-									<span class="text-amber-400 font-gt-walsheim-pro-medium">
-										itolympics.secretariat@gmail.com
-									</span>
-								</a>
-							</p>
+								<p>
+									Please send a copy of your transaction receipt to
+									<a href="mailto:itolympics.secretariat@gmail.com">
+										<span class="text-amber-400 font-gt-walsheim-pro-medium">
+											itolympics.secretariat@gmail.com
+										</span>
+									</a>
+								</p>
+							</div>
 
 							<!-- 	<div class="flex flex-col gap-4"> -->
 							<!-- 		<label class="flex items-center gap-4"> -->
