@@ -17,7 +17,10 @@
 		</a>
 		<div class="flex gap-4 md:gap-10">
 			{#each ROUTES as route, idx (idx)}
-				<a href={route.path} class="text-md">{route.name}</a>
+				<div class="group">
+					<a href={route.path} class="transition-all duration-200 text-md font-normal group-hover:font-bold group-hover:text-yellow-200">{route.name}</a>
+					<div class="transition-all duration-200 w-0 group-hover:w-[100%] h-[2px] bg-yellow-200"></div>
+				</div>
 			{/each}
 		</div>
 	</nav>

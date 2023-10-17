@@ -4,6 +4,7 @@
 	import { ArrowClockwise, InfoCircle, Plus, Trash } from '$lib/assets/icons';
 	import { gcash } from '$lib/assets/images';
 	import { Confirmation } from '$lib/components';
+	import Footer from '$lib/components/Footer.svelte';
 	import type { Category, Limit } from '$lib/types';
 	import { onMount } from 'svelte';
 
@@ -538,4 +539,7 @@
 		</div>
 	</div>
 	<!-- </form> -->
+
+    <Footer disableRegisterButton />
+
 </div>

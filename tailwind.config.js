@@ -12,6 +12,13 @@ export default {
 	],
 	theme: {
 		extend: {
+			keyframes: {
+				floating: {
+					"0%, 100%": {transform: 'translateY(0px)'},
+					"50%": {transform: "translateY(-10px)"},
+				}	
+			},
+
 			colors: {
 				accent: '#00c784',
 				background: '#060A29'
@@ -27,6 +34,10 @@ export default {
 			},
 			dropShadow: {
 				ring: '0px 0px 20px rgba(0, 0, 0, 0.9)'
+			},
+
+			animation: {
+				float: 'floating 4s ease-in-out infinite'
 			}
 		},
 		fontFamily: {

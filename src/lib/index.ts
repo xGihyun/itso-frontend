@@ -10,9 +10,13 @@ export const ROUTES: Route[] = [
 		path: '/about'
 	},
 	{
+		name: 'Categories',
+		path: '/category'
+	},
+	{
 		name: 'Register',
 		path: '/register'
-	}
+	},
 	// {
 	// 	name: 'Login',
 	// 	path: '/auth/login'
