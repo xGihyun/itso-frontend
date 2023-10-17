@@ -11,6 +11,13 @@ export default {
 		// join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
+		listStyleType: {
+			none: 'none',
+			disc: 'disc',
+			decimal: 'decimal',
+			square: 'square',
+			alpha: 'lower-alpha',
+		  },
 		extend: {
 			keyframes: {
 				floating: {
