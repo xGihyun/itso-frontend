@@ -47,7 +47,7 @@
         <div class="group transition-all border-[#202663] h-20 bg-[#111961] drop-shadow-lg rounded-xl flex flex-col justify-center items-center cursor-pointer overflow-hidden"
         on:click={() => goto("/docx/CYBERSECURITY.docx")}
         >
-			<span class="transition-all group-hover:font-bold text-xl z-20">Cyber Security</span>
+			<span class="transition-all group-hover:font-bold text-xl z-20">Cybersecurity</span>
 			<img src={cyberSecImg} class="absolute z-10 transition-all brightness-50 group-hover:brightness-75" alt="" srcset="">
 		</div>
         <div class="group transition-all border-[#202663] h-20 bg-[#111961] drop-shadow-lg rounded-xl flex flex-col justify-center items-center cursor-pointer overflow-hidden"
