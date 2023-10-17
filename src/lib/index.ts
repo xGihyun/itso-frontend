@@ -33,8 +33,8 @@ export const CATEGORIES: Map<string, Category> = new Map([
 		{
 			name: 'Java',
 			limit: {
-				min: 1,
-				max: 1
+				min: 2,
+				max: 2
 			}
 		}
 	],
@@ -43,8 +43,8 @@ export const CATEGORIES: Map<string, Category> = new Map([
 		{
 			name: 'C#',
 			limit: {
-				min: 1,
-				max: 1
+				min: 2,
+				max: 2
 			}
 		}
 	],
@@ -53,8 +53,8 @@ export const CATEGORIES: Map<string, Category> = new Map([
 		{
 			name: 'Cyber Security',
 			limit: {
-				min: 1,
-				max: 1
+				min: 3,
+				max: 3
 			}
 		}
 	],
