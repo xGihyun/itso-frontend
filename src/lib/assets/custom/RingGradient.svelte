@@ -4,6 +4,7 @@
 	export let from: string = 'stop-color:#ff6347';
 	export let to: string = 'stop-color:#8a2be2';
 	export let id: string;
+	export let bind: Element;
 </script>
 
 <svg
