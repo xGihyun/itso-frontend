@@ -1,15 +1,21 @@
 <script lang="ts">
 	import { ROUTES } from '$lib';
-	import { itsoLogoName } from '$lib/assets/images';
+	import { ccisLogo, itsoLogo, itsoLogoName } from '$lib/assets/images';
 </script>
 
 <header class="fixed top-0 left-0 z-[100] w-full">
 	<nav
 		class="w-full flex h-16 px-padding relative items-center bg-background shadow-rect justify-between border-image-slice border-gradient border-b-2"
 	>
-		<a href="/">
+		<a href="/" class="flex flex-row gap-2">
 			<img
-				src={itsoLogoName}
+				src={ccisLogo}
+				class="object-cover max-h-full h-12"
+				alt="IT Skills Olympics"
+				draggable="false"
+			/>
+			<img
+				src={itsoLogo}
 				class="object-cover max-h-full h-12"
 				alt="IT Skills Olympics"
 				draggable="false"
