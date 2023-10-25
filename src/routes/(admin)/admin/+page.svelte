@@ -7,15 +7,15 @@
 		const arrayBuffer = await response.arrayBuffer();
 
 		const blob = new Blob([arrayBuffer], {
-			type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			type: 'text/csv'
 		});
 
 		const a = document.createElement('a');
 		const blobUrl = window.URL.createObjectURL(blob);
-		console.log(blobUrl);
-		// const date = new Date().toISOString().split('T')[0];
+		// console.log(blobUrl);
+		const date = new Date().toISOString().split('T')[0];
 		a.href = blobUrl;
-		a.download = `ITSO_Participants.xlsx`;
+		a.download = `${date}.csv`;
 
 		document.body.appendChild(a);
 
