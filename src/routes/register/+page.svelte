@@ -202,17 +202,26 @@
 										student currently enrolled in the College or University he/she represents.
 									</p>
 								</li>
+
 								<li>
 									<p>
-										Every participant MUST have an assigned
+										Every participant/team MUST have an assigned
 										<span class="text-amber-400 uppercase font-gt-walsheim-pro-medium">coach</span>
 										to completely represent the school.
 									</p>
 								</li>
+
 								<li>
 									<p>
-										<span class="text-amber-400 uppercase font-gt-walsheim-pro-medium">One</span>
-										participant for each event shall be allowed except Android Application Competition.
+										The contestants must present their
+										<span class="text-amber-400 font-gt-walsheim-pro-medium"
+											>Certificate of Registration</span
+										>
+										or
+										<span class="text-amber-400 font-gt-walsheim-pro-medium"
+											>Official Enrollment Form</span
+										>
+										and validated school ID card upon registration for identity verification.
 									</p>
 								</li>
 
@@ -540,6 +549,5 @@
 	</div>
 	<!-- </form> -->
 
-    <Footer disableRegisterButton />
-
+	<Footer disableRegisterButton />
 </div>
