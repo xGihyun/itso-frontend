@@ -12,8 +12,9 @@
 
 		const a = document.createElement('a');
 		const blobUrl = window.URL.createObjectURL(blob);
+		const date = new Date().toISOString().split('T')[0];
 		a.href = blobUrl;
-		a.download = 'data.xlsx';
+		a.download = `${date}.xlsx`;
 
 		document.body.appendChild(a);
 

@@ -15,7 +15,7 @@
     >
     {/if}
     
-    <span>Be the <strong>REVOLUTION</strong>. Be the <strong>INNOVATION</strong>. Be the <strong>FUTURE</strong>.</span>
+    <span class="text-center">Be the <strong>REVOLUTION</strong>. Be the <strong>INNOVATION</strong>. Be the <strong>FUTURE</strong>.</span>
     <div class="flex flex-row gap-2">
         <img src={umakLogo} class="w-14" alt="">
         <img src={ccisLogo} class="w-14" alt="">

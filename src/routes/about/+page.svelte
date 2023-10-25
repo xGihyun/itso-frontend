@@ -35,25 +35,25 @@
 
 	<div class="grid grid-rows-1 lg:grid-cols-2 lg:grid-flow-row gap-4">
 		<div class="group transition-all border-[#202663] h-20 bg-[#111961] drop-shadow-lg rounded-xl flex flex-col justify-center items-center cursor-pointer overflow-hidden"
-        on:click={() => goto("/docx/JAVA-PROGRAMMING.docx")}
+        on:click={() => window.open("/docx/JAVA-PROGRAMMING.pdf", "_blank")}
         >
 			<span class="transition-all group-hover:font-bold text-xl z-20">Java Programming</span>
 			<img src={javaCodeImg} class="absolute z-10 transition-all brightness-50 group-hover:brightness-75" alt="" srcset="">
 		</div>
 		<div class="group transition-all border-[#202663] h-20 bg-[#111961] drop-shadow-lg rounded-xl flex flex-col justify-center items-center cursor-pointer overflow-hidden"
-        on:click={() => goto("/docx/WEB-PAGE-DESIGN.docx")}
+        on:click={() => window.open("/docx/WEB-PAGE-DESIGN.pdf", "_blank")}
         >
 			<span class="transition-all group-hover:font-bold text-xl z-20">Webpage Design</span>
 			<img src={webDevImg} class="absolute z-10 transition-all brightness-50 group-hover:brightness-75" alt="" srcset="">
 		</div>
 		<div class="group transition-all border-[#202663] h-20 bg-[#111961] drop-shadow-lg rounded-xl flex flex-col justify-center items-center cursor-pointer overflow-hidden"
-        on:click={() => goto("/docx/PC-DISASSEMBLYASSEMBLY.docx")}
+        on:click={() => window.open("/docx/PC-DISASSEMBLY_ASSEMBLY.pdf", "_blank")}
         >
 			<span class="transition-all group-hover:font-bold text-xl z-20">PC Assembly / Disassembly</span>
 			<img src={pcDisImg} class="absolute z-10 transition-all brightness-50 group-hover:brightness-75" alt="" srcset="">
 		</div>
 		<div class="group transition-all border-[#202663] h-20 bg-[#111961] drop-shadow-lg rounded-xl flex flex-col justify-center items-center cursor-pointer overflow-hidden"
-        on:click={() => goto("/docx/NET-PROGRAMMING.docx")}
+        on:click={() => window.open("/docx/NET-PROGRAMMING.pdf", "_blank")}
         >
 			<span class="transition-all group-hover:font-bold text-xl z-20">.NET Programming</span>
 			<img src={netProgImg} class="absolute z-10 transition-all brightness-50 group-hover:brightness-75" alt="" srcset="">
