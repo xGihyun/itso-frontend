@@ -19,5 +19,11 @@ import itQuizImg from "./it-quiz-img.avif"
 import compNetImg from "./comp-net-img.avif"
 import umakLogo from "./UMak Logo.png"
 import ccisLogo from "./CCIS Logo Official - 1.png"
+import ccisRecogCert from "./ccis-cert-wuri.jpg"
+import wuriLogo from "./wuri-logo.webp"
+import chedLogo from "./ched-logo.png"
+import jamImg from "./jam-img.png"
+import gioImg from "./giordan-img.jpg"
+import makatiCityLogo from "./makati-city.png"
 
-export { umakLogo, ccisLogo, compNetImg, itsoBanner, itsoLogoName, itsoBannerFull, itsoLogo, gcash, javaCodeImg, webDevImg, pcDisImg, netProgImg, softDevImg, androidFinanceImg, androidGameImg, androidIotImg, androidProductivity, cyberSecImg, digiElecImg, esportImg,itQuizImg };
+export { makatiCityLogo, jamImg, gioImg, chedLogo, wuriLogo, ccisRecogCert, umakLogo, ccisLogo, compNetImg, itsoBanner, itsoLogoName, itsoBannerFull, itsoLogo, gcash, javaCodeImg, webDevImg, pcDisImg, netProgImg, softDevImg, androidFinanceImg, androidGameImg, androidIotImg, androidProductivity, cyberSecImg, digiElecImg, esportImg,itQuizImg };

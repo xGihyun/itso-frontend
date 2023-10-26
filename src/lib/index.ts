@@ -10,10 +10,6 @@ export const ROUTES: Route[] = [
 		path: '/about'
 	},
 	{
-		name: 'Categories',
-		path: '/category'
-	},
-	{
 		name: 'Register',
 		path: '/register'
 	},
