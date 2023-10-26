@@ -7,14 +7,15 @@
 		const arrayBuffer = await response.arrayBuffer();
 
 		const blob = new Blob([arrayBuffer], {
-			type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+			type: 'text/csv'
 		});
 
 		const a = document.createElement('a');
 		const blobUrl = window.URL.createObjectURL(blob);
+		// console.log(blobUrl);
 		const date = new Date().toISOString().split('T')[0];
 		a.href = blobUrl;
-		a.download = `${date}.xlsx`;
+		a.download = `${date}.csv`;
 
 		document.body.appendChild(a);
 
@@ -26,6 +27,6 @@
 </script>
 
 <div class="px-padding">
-	<p>Excel file here:</p>
+	<p>Spreadsheet file here:</p>
 	<button class="bg-red-500 text-white p-2" type="submit" on:click={download}>Download</button>
 </div>
