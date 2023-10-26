@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class="px-padding">
+<div class="px-padding absolute flex flex-col w-full  h-[90vh] justify-center items-center gap-10">
 	<p>Spreadsheet file here:</p>
-	<button class="bg-red-500 text-white p-2" type="submit" on:click={download}>Download</button>
+	<button class="bg-red-500 text-white p-2 w-[25%] rounded" type="submit" on:click={download}>Download</button>
 </div>

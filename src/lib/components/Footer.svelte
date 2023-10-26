@@ -1,6 +1,9 @@
 <script lang="ts">
 
 	import { ccisLogo, itsoLogo, umakLogo } from "$lib/assets/images";
+    import Fa from "svelte-fa";
+    import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+	import { goto } from "$app/navigation";
 
     export let disableRegisterButton: boolean = false;
 
@@ -22,4 +25,9 @@
         <img src={itsoLogo} class="w-14" alt="">
     </div>
 
+    <div class="flex flex-row gap-2 justify-center items-center py-2 ">
+        <span class="text-sm">Developed by the <strong>College of Computing and Information Sciences</strong></span>
+        <span class="text-sm">|</span>
+        <span class="text-sm transition-all hover:text-indigo-400 hover:underline" on:click={() => goto("acknowledgements")}>Acknowledgements</span>
+    </div>
 </div>
