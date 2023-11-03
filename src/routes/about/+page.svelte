@@ -20,7 +20,8 @@
 		pcDisImg,
 		softDevImg,
 		webDevImg,
-		wuriLogo
+		wuriLogo,
+		itsoCert
 	} from '$lib/assets/images';
 	import Footer from '$lib/components/Footer.svelte';
 
@@ -294,7 +295,7 @@
 			<img src={wuriLogo} class="w-72" alt="" srcset="" />
 		</div>
 
-		<img class="py-5" src={ccisRecogCert} alt="" srcset="" />
+		<img class="py-5" src={itsoCert} alt="" srcset="" />
 	</div>
 
 	<Footer />
