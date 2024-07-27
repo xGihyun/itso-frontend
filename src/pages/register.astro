@@ -1,7 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import RegisterForm from "@/components/register";
 ---
 
+<!--TODO: Make stuff look good-->
+
 <Layout title="Register">
-  <h1>Register</h1>
+  <h1 class="text-4xl font-bold mb-10">Register</h1>
+
+  <RegisterForm client:load />
 </Layout>
