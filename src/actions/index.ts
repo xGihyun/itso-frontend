@@ -1,3 +1,5 @@
+import { db } from "@/drizzle/db";
+import { CoachesTable, EntriesTable, StudentsTable } from "@/drizzle/schema";
 import { registerSchema } from "@/schemas";
 import { ActionError, defineAction } from "astro:actions";
 
@@ -8,14 +10,36 @@ export const server = {
       console.log("Register:", data);
 
       // Sample error handling
-      if (data.students.length < 2) {
-        throw new ActionError({
-          code: "BAD_REQUEST",
-          message: "I need more students!",
-        });
-      }
+      //if (data.students.length < 2) {
+      //  throw new ActionError({
+      //    code: "BAD_REQUEST",
+      //    message: "I need more students!",
+      //  });
+      //}
 
-      // Do database stuff ...
+      // TODO: Handle errors
+      await db.transaction(async (tx) => {
+        const [coach] = await tx
+          .insert(CoachesTable)
+          .values(data.coach)
+          .returning({ coach_id: CoachesTable.coach_id });
+
+        const students = await tx
+          .insert(StudentsTable)
+          .values(data.students)
+          .returning({ student_id: StudentsTable.student_id });
+
+        for (const student of students) {
+          const entry = {
+            school_name: data.school_name,
+            student_id: student.student_id,
+            coach_id: coach.coach_id,
+            category_id: data.category_id,
+          };
+
+          await tx.insert(EntriesTable).values(entry);
+        }
+      });
     },
   }),
 };

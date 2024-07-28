@@ -22,7 +22,8 @@ export const CategoriesTable = pgTable("categories", {
   category_id: serial("category_id").primaryKey(),
 
   name: text("name").notNull(),
-  limit: smallint("limit").notNull(),
+  minimum: smallint("minimum").notNull(),
+  maximum: smallint("maximum").notNull(),
 });
 
 export const EntriesTable = pgTable("entries", {

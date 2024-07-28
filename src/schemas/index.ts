@@ -20,7 +20,7 @@ const coachSchema = z
 export const registerSchema = z.object({
 	students: fullNameSchema.array(),
 	coach: coachSchema,
-	category_id: z.string(),
+	category_id: z.coerce.number(),
   school_name: z.string()
 });
 
