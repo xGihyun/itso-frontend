@@ -1,53 +1,110 @@
-import { pgTable, serial, smallint, text, uuid } from "drizzle-orm/pg-core";
+import {
+  timestamp,
+  pgTable,
+  smallint,
+  text,
+  uuid,
+  pgEnum,
+} from "drizzle-orm/pg-core";
+
+export const eventYearStatusEnum = pgEnum("event_year_status", [
+  "ongoing",
+  "closed",
+  "open",
+]);
 
 export const StudentsTable = pgTable("students", {
-  student_id: uuid("student_id").primaryKey().defaultRandom(),
+  id: uuid("student_id").primaryKey().defaultRandom(),
 
-  first_name: text("first_name").notNull(),
-  middle_name: text("middle_name"),
-  last_name: text("last_name").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+
+  firstName: text("first_name").notNull(),
+  middleName: text("middle_name"),
+  lastName: text("last_name").notNull(),
 });
 
 export const CoachesTable = pgTable("coaches", {
-  coach_id: uuid("coach_id").primaryKey().defaultRandom(),
+  id: uuid("coach_id").primaryKey().defaultRandom(),
 
-  first_name: text("first_name").notNull(),
-  middle_name: text("middle_name"),
-  last_name: text("last_name").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+
+  firstName: text("first_name").notNull(),
+  middleName: text("middle_name"),
+  lastName: text("last_name").notNull(),
   email: text("email").notNull(),
-  contact_number: text("contact_number").notNull(),
+  contactNumber: text("contact_number").notNull(),
 });
 
 export const CategoriesTable = pgTable("categories", {
-  category_id: serial("category_id").primaryKey(),
+  id: uuid("category_id").primaryKey(),
+
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 
   name: text("name").notNull(),
-  minimum: smallint("minimum").notNull(),
-  maximum: smallint("maximum").notNull(),
+  minimumParticipantLimit: smallint("minimum_participant_limit").notNull(),
+  maximumParticipantLimit: smallint("maximum_participant_limit").notNull(),
+});
+
+export const SchoolsTable = pgTable("schools", {
+  id: uuid("school_id").primaryKey().defaultRandom(),
+
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+
+  name: text("name").notNull(),
+  campus: text("campus"),
+});
+
+export const EventYearsTable = pgTable("event_years", {
+  id: uuid("event_year_id").primaryKey().defaultRandom(),
+
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+
+  year: smallint("year").notNull().unique(),
+  status: eventYearStatusEnum("status").notNull().default("closed"),
 });
 
 export const EntriesTable = pgTable("entries", {
-  entry_id: uuid("entry_id").primaryKey().defaultRandom(),
+  id: uuid("entry_id").primaryKey().defaultRandom(),
 
-  // NOTE:
-  // Having a separate `schools` table would be better if we have a list
-  // of all universities in the country
-  school_name: text("school_name").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 
-  student_id: uuid("student_id")
-    .references(() => StudentsTable.student_id)
+  eventYearId: uuid("event_year_id")
+    .references(() => EventYearsTable.id)
     .notNull(),
-  coach_id: uuid("coach_id")
-    .references(() => CoachesTable.coach_id)
+  categoryId: uuid("category_id")
+    .references(() => CategoriesTable.id)
     .notNull(),
-  category_id: serial("category_id")
-    .references(() => CategoriesTable.category_id)
+  schoolId: uuid("school_id")
+    .references(() => SchoolsTable.id)
+    .notNull(),
+  studentId: uuid("student_id")
+    .references(() => StudentsTable.id)
+    .notNull(),
+  coachId: uuid("coach_id")
+    .references(() => CoachesTable.id)
     .notNull(),
 });
-
-//export const SchoolsTable = pgTable("schools", {
-//  school_id: uuid("school_id").primaryKey().defaultRandom(),
-//
-//  name: text("name").notNull(),
-//  campus: text("campus"),
-//});
