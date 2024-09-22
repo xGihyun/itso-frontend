@@ -24,6 +24,9 @@ import {
   type RegisterInput,
 } from "../schema";
 import { toast } from "sonner";
+import type { CategoryResult } from "../types";
+import { useEffect, useState } from "react";
+import { actions } from "astro:actions";
 
 const DEFAULT_FULL_NAME: FullNameInput = {
   lastName: "",
@@ -31,7 +34,11 @@ const DEFAULT_FULL_NAME: FullNameInput = {
   middleName: "",
 };
 
-export function RegisterForm(): JSX.Element {
+type Props = {
+  categories: CategoryResult[];
+};
+
+export function RegisterForm(props: Props): JSX.Element {
   const form = useForm<RegisterInput>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -51,11 +58,57 @@ export function RegisterForm(): JSX.Element {
   });
 
   const studentsLength = form.watch("students").length;
+  const selectedCategoryId = form.watch("categoryId");
+  const [category, setCategory] = useState<CategoryResult | undefined>();
 
-  function onSubmit(values: RegisterInput) {
-    console.log(values);
+  function setSelectedCategory(categoryId: string): void {
+    const selectedCategory = props.categories.find(
+      (category) => category.id === categoryId,
+    );
 
-    toast.success("Successfully registered!");
+    setCategory(selectedCategory);
+
+    if (!selectedCategory) {
+      console.error("No selected category.");
+      return;
+    }
+
+    form.setValue(
+      "students",
+      Array.from(
+        { length: selectedCategory.minimumParticipantLimit },
+        () => DEFAULT_FULL_NAME,
+      ),
+    );
+  }
+
+  useEffect(() => {
+    setSelectedCategory(selectedCategoryId);
+  }, [selectedCategoryId]);
+
+  function isStudentCountOutOfBounds(): boolean {
+    if (!category) {
+      return true;
+    }
+
+    return (
+      studentsLength < category.minimumParticipantLimit ||
+      studentsLength >= category.maximumParticipantLimit
+    );
+  }
+
+  async function onSubmit(values: RegisterInput): Promise<void> {
+    let toastId = toast.loading("Submitting");
+
+    const { error } = await actions.register(values);
+
+    if (error) {
+      console.error(error.message);
+      toast.error(error.message, { id: toastId });
+      return;
+    }
+
+    toast.success("Successfully registered!", { id: toastId });
   }
 
   return (
@@ -74,8 +127,11 @@ export function RegisterForm(): JSX.Element {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="web-design">Web Design</SelectItem>
-                  <SelectItem value="e-sports">E-Sports</SelectItem>
+                  {props.categories.map((category) => (
+                    <SelectItem value={category.id} key={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -164,6 +220,7 @@ export function RegisterForm(): JSX.Element {
         <Button
           onClick={() => fieldArray.append(DEFAULT_FULL_NAME)}
           type="button"
+          disabled={isStudentCountOutOfBounds()}
         >
           Add Student
         </Button>

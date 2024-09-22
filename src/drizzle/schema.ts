@@ -5,6 +5,7 @@ import {
   text,
   uuid,
   pgEnum,
+  serial,
 } from "drizzle-orm/pg-core";
 
 export const eventYearStatusEnum = pgEnum("event_year_status", [
@@ -16,7 +17,7 @@ export const eventYearStatusEnum = pgEnum("event_year_status", [
 export const StudentsTable = pgTable("students", {
   id: uuid("student_id").primaryKey().defaultRandom(),
 
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -30,7 +31,7 @@ export const StudentsTable = pgTable("students", {
 export const CoachesTable = pgTable("coaches", {
   id: uuid("coach_id").primaryKey().defaultRandom(),
 
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -44,9 +45,9 @@ export const CoachesTable = pgTable("coaches", {
 });
 
 export const CategoriesTable = pgTable("categories", {
-  id: uuid("category_id").primaryKey(),
+  id: uuid("category_id").primaryKey().defaultRandom(),
 
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -60,7 +61,7 @@ export const CategoriesTable = pgTable("categories", {
 export const SchoolsTable = pgTable("schools", {
   id: uuid("school_id").primaryKey().defaultRandom(),
 
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -73,7 +74,7 @@ export const SchoolsTable = pgTable("schools", {
 export const EventYearsTable = pgTable("event_years", {
   id: uuid("event_year_id").primaryKey().defaultRandom(),
 
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -86,7 +87,7 @@ export const EventYearsTable = pgTable("event_years", {
 export const EntriesTable = pgTable("entries", {
   id: uuid("entry_id").primaryKey().defaultRandom(),
 
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
@@ -107,4 +108,10 @@ export const EntriesTable = pgTable("entries", {
   coachId: uuid("coach_id")
     .references(() => CoachesTable.id)
     .notNull(),
+});
+
+export const SyncLogsTable = pgTable("sync_logs", {
+  id: serial("sync_log_id").primaryKey(),
+
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });

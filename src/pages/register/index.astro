@@ -1,11 +1,34 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { RegisterForm } from "./_components/form";
+import type { CategoryResult } from "./types.ts";
+import { db } from "@/drizzle/db";
+import { CategoriesTable } from "@/drizzle/schema";
+import { Button } from "@/components/ui/button";
+import { GET } from "@/pages/api/sync";
+
+type LoadData = {
+  categories: CategoryResult[];
+};
+
+const categories: CategoryResult[] = await db
+  .select({
+    id: CategoriesTable.id,
+    name: CategoriesTable.name,
+    minimumParticipantLimit: CategoriesTable.minimumParticipantLimit,
+    maximumParticipantLimit: CategoriesTable.maximumParticipantLimit,
+  })
+  .from(CategoriesTable);
+
+async function syncTest() {
+  const foo = await GET(Astro);
+}
+
+syncTest();
 ---
 
 <Layout title="Register">
   <h1 class="text-4xl font-bold mb-10">Register</h1>
 
-  <RegisterForm client:load />
+  <RegisterForm {categories} client:load />
 </Layout>
-

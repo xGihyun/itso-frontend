@@ -1,62 +1,92 @@
-import { Workbook } from "exceljs";
+import { GOOGLE_SPREADSHEET_ID } from "astro:env/server";
+import { GOOGLE_PRIVATE_KEY } from "astro:env/server";
+import { GOOGLE_SERVICE_ACCOUNT_EMAIL } from "astro:env/server";
+import { JWT } from "google-auth-library";
+import { GoogleSpreadsheet } from "google-spreadsheet";
+import { db } from "@/drizzle/db";
+import { camelCaseToHeader } from "./utils";
+import { SyncLogsTable } from "@/drizzle/schema";
 
-async function generateSpreadsheet(): Promise<Workbook> {
-  const workbook = new Workbook();
-  const worksheet = workbook.addWorksheet("Participants");
+export type EntrySpreadsheetData = {
+  createdAt: Date;
+  category: {
+    name: string;
+  };
+  school: {
+    name: string;
+    campus: string | null;
+  };
+  student: {
+    firstName: string;
+    middleName: string | null;
+    lastName: string;
+  };
+  coach: {
+    firstName: string;
+    middleName: string | null;
+    lastName: string;
+    email: string;
+    contactNumber: string;
+  };
+};
 
-  worksheet.columns = [
-    {
-      header: "Category",
-      key: "category",
-      width: 20,
-    },
-    {
-      header: "Student",
-      key: "student",
-      width: 40,
-    },
-    {
-      header: "Coach",
-      key: "coach",
-      width: 40,
-    },
+// TODO: Handle errors properly
+export async function sheets(tx = db, entries: EntrySpreadsheetData[]) {
+  console.log("Syncing to Google Sheets...");
 
-    // Other data ...
+  const serviceAccountAuth = new JWT({
+    email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    key: GOOGLE_PRIVATE_KEY,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  const doc = new GoogleSpreadsheet(GOOGLE_SPREADSHEET_ID, serviceAccountAuth);
+
+  await doc.loadInfo();
+  console.log("Title:", doc.title);
+
+  const sheet = doc.sheetsByIndex[0];
+
+  //await sheet.loadHeaderRow(2);
+
+  const headerRow = [
+    "Category",
+    "School",
+    "Student First Name",
+    "Student Middle Name",
+    "Student Last Name",
+    "Coach First Name",
+    "Coach Middle Name",
+    "Coach Last Name",
+    "Coach Email",
+    "Coach Contact Number",
   ];
 
-  // Write data to spreadsheet
-  for (let i = 2; i < 7; i++) {
-    const row = worksheet.insertRow(i, {category: "HELLO", student: "WORLD"});
-    //for (let j = 1; j < 4; j++) {
-    //  const cell = row.getCell(j);
-    //
-    //  cell.value = "foo " + j;
-    //}
-  }
+  await sheet.setHeaderRow(headerRow, 2);
 
-  return workbook;
-}
+  // NOTE: This is pretty bad but it works
+  const entryRows = entries.map((entry) => {
+    const schoolFullName = `${entry.school.name}${entry.school.campus !== null ? " - " + entry.school.campus : ""}`;
 
-export async function downloadSpreadsheet(): Promise<void> {
-  console.log("Generating spreadsheet...");
+    return {
+      Category: entry.category.name,
+      School: schoolFullName,
+      "Student First Name": entry.student.firstName,
+      "Student Middle Name": entry.student.middleName || "",
+      "Student Last Name": entry.student.lastName,
+      "Coach First Name": entry.coach.firstName,
+      "Coach Middle Name": entry.coach.middleName || "",
+      "Coach Last Name": entry.coach.lastName,
+      "Coach Email": entry.coach.email,
+      "Coach Contact Number": entry.coach.contactNumber,
+    };
+  });
 
-  const workbook = await generateSpreadsheet();
-  const buffer = await workbook.csv.writeBuffer();
-  const blob = new Blob([buffer], { type: "text/csv" });
+  await sheet.addRows(entryRows);
 
-  console.log("Generated spreadsheet, downloading...");
+  // TODO: Insert `entries.created_at` instead rather than relying on
+  // `sync_logs.created_at` 
+  await tx.insert(SyncLogsTable).values({ id: undefined, createdAt: undefined });
 
-  const blobUrl = window.URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = blobUrl;
-  link.download = "test.csv";
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  window.URL.revokeObjectURL(blobUrl);
-  document.body.removeChild(link);
-
-  console.log("Downloaded spreadsheet");
+  console.log("Added new entries.");
 }
