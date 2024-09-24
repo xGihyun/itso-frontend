@@ -114,4 +114,8 @@ export const SyncLogsTable = pgTable("sync_logs", {
   id: serial("sync_log_id").primaryKey(),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
+
+  latestEntryId: uuid("latest_entry_id")
+    .references(() => EntriesTable.id)
+    .notNull(),
 });
