@@ -67,7 +67,10 @@ async function getSpreadsheetDocument(): Promise<GoogleSpreadsheet> {
 function formatEntryRow(
   entry: EntrySpreadsheetData,
 ): Record<HeaderType, string> {
-  const schoolFullName = `${entry.school.name}${entry.school.campus !== null ? ` - ${entry.school.campus}` : ""}`;
+  const schoolFullName =
+    entry.school.campus && entry.school.campus.trim() !== ""
+      ? `${entry.school.name} - ${entry.school.campus}`
+      : entry.school.name;
 
   return {
     Category: entry.category.name,

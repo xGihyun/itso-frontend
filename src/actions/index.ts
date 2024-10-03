@@ -8,7 +8,7 @@ import {
   StudentsTable,
 } from "@/drizzle/schema";
 import { RegisterSchema } from "@/pages/register/schema";
-import { ActionError, defineAction } from "astro:actions";
+import { ActionError, defineAction, isActionError } from "astro:actions";
 import { desc, eq, type InferInsertModel } from "drizzle-orm";
 
 type EntryInsertModel = InferInsertModel<typeof EntriesTable>;
@@ -115,7 +115,7 @@ export const server = {
           }
         });
       } catch (err) {
-        if (err instanceof ActionError) {
+        if (isActionError(err)) {
           console.error(err.message);
           throw err;
         }
@@ -137,4 +137,3 @@ export const server = {
     },
   }),
 };
-
