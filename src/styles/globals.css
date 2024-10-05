@@ -57,12 +57,53 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  @font-face {
+    font-family: marcellus;
+    src: url('/fonts/marcellus/Marcellus-Regular.ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: metropolis;
+    src: url('/fonts/metropolis/Metropolis-Regular.otf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: metropolis-medium;
+    src: url('/fonts/metropolis/Metropolis-Medium.otf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: metropolis-semibold;
+    src: url('/fonts/metropolis/Metropolis-SemiBold.otf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: metropolis-bold;
+    src: url('/fonts/metropolis/Metropolis-Bold.otf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: metropolis-black;
+    src: url('/fonts/metropolis/Metropolis-Black.otf');
+    font-display: swap;
+  }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-metropolis;
   }
+
+  h1, h2 {
+    @apply font-metropolis-semibold;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

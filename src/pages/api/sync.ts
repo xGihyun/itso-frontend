@@ -6,6 +6,7 @@ import { retryOperation } from "@/lib/utils";
 import type { APIRoute } from "astro";
 import { desc, eq } from "drizzle-orm";
 
+// TODO: Rate limiting (´｡• ᵕ •｡`)
 export const GET: APIRoute = async () => {
   try {
     await retryOperation(async () => {

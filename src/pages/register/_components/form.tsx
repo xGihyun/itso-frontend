@@ -97,6 +97,16 @@ export function RegisterForm(props: Props): JSX.Element {
     );
   }
 
+  function hasEqualParticipantLimit(): boolean {
+    if (!category) {
+      return true;
+    }
+
+    return (
+      category.minimumParticipantLimit === category.maximumParticipantLimit
+    );
+  }
+
   async function onSubmit(values: RegisterInput): Promise<void> {
     let toastId = toast.loading("Submitting");
 
@@ -119,7 +129,7 @@ export function RegisterForm(props: Props): JSX.Element {
           name="categoryId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
+              <FormLabel>Category *</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -146,7 +156,7 @@ export function RegisterForm(props: Props): JSX.Element {
           name="school.name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Name *</FormLabel>
               <FormControl>
                 <Input placeholder="University of Makati" {...field} />
               </FormControl>
@@ -172,13 +182,13 @@ export function RegisterForm(props: Props): JSX.Element {
         <h2 className="text-xl">Students</h2>
 
         {fieldArray.fields.map((field, i) => (
-          <div key={field.id} className="flex gap-2">
+          <div key={field.id} className="flex gap-2 items-end">
             <FormField
               control={form.control}
               name={`students.${i}.firstName`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>First Name *</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -206,7 +216,7 @@ export function RegisterForm(props: Props): JSX.Element {
               name={`students.${i}.lastName`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>Last Name *</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -214,16 +224,30 @@ export function RegisterForm(props: Props): JSX.Element {
                 </FormItem>
               )}
             />
+
+            {!hasEqualParticipantLimit() ? (
+              <Button
+                onClick={() => fieldArray.remove(i)}
+                type="button"
+                variant="destructive"
+                size="icon"
+                disabled={!isStudentCountOutOfBounds()}
+              >
+                X
+              </Button>
+            ) : null}
           </div>
         ))}
 
-        <Button
-          onClick={() => fieldArray.append(DEFAULT_FULL_NAME)}
-          type="button"
-          disabled={isStudentCountOutOfBounds()}
-        >
-          Add Student
-        </Button>
+        {!hasEqualParticipantLimit() ? (
+          <Button
+            onClick={() => fieldArray.append(DEFAULT_FULL_NAME)}
+            type="button"
+            disabled={isStudentCountOutOfBounds()}
+          >
+            Add Student
+          </Button>
+        ) : null}
 
         <h2 className="text-xl">Coach</h2>
 
@@ -232,7 +256,7 @@ export function RegisterForm(props: Props): JSX.Element {
           name="coach.firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>First Name *</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -260,7 +284,7 @@ export function RegisterForm(props: Props): JSX.Element {
           name="coach.lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>Last Name *</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -274,7 +298,7 @@ export function RegisterForm(props: Props): JSX.Element {
           name="coach.email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email *</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -288,7 +312,7 @@ export function RegisterForm(props: Props): JSX.Element {
           name="coach.contactNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Contact Number</FormLabel>
+              <FormLabel>Contact Number *</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
