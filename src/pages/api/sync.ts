@@ -30,13 +30,21 @@ export const GET: APIRoute = async () => {
       });
     });
 
+    console.log("Successfully synced entries to spreadsheet.")
+
     return new Response("Successfully synced entries to spreadsheet.", {
       status: 201,
+      headers: {
+        "Content-Type": "text/plain",
+      },
     });
   } catch (err) {
     console.error("Failed to sync entries to spreadsheet:", err);
     return new Response("Failed to sync entries to spreadsheet.", {
       status: 500,
+      headers: {
+        "Content-Type": "text/plain",
+      },
     });
   }
 };
