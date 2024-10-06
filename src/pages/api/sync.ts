@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import { db } from "@/drizzle/db";
 import { getLatestEntries } from "@/drizzle/queries/entries";
 import { EventYearsTable } from "@/drizzle/schema";
