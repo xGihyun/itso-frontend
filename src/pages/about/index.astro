@@ -1,0 +1,150 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import {
+  ccisLogo,
+  itsoRobot,
+  chedLogo,
+  wuriLogo,
+  ccisWuriCertificate,
+} from "@/assets/images";
+---
+
+<Layout title="About">
+  <div class="bg-white">
+    <header
+      class="relative h-80 w-full bg-primary flex justify-center items-end px-5 md:px-20"
+    >
+      <div class="absolute h-full w-full overflow-hidden">
+        <Image
+          src={itsoRobot}
+          alt="ITSO Robot"
+          class="object-cover object-center w-full h-full absolute inset-0 brightness-50 blur-sm scale-105"
+        />
+      </div>
+
+      <div
+        class="h-72 max-w-4xl w-full -mb-20 relative rounded-md overflow-hidden"
+      >
+        <Image
+          src={itsoRobot}
+          alt="ITSO Robot"
+          class="object-cover object-top w-full h-full"
+        />
+      </div>
+    </header>
+
+    <div class="px-5 md:px-20 text-black max-w-5xl mx-auto">
+      <section class="py-10 pt-40 md:py-20 md:pt-40">
+        <h1 class="font-metropolis-bold text-xl md:text-2xl lg:text-4xl text-center mb-5">
+          What is IT Skills Olympics?
+        </h1>
+
+        <p class="text-justify text-sm md:text-base">
+          <span class="font-metropolis-bold"> IT Skills Olympics </span>
+           is an annual event of the 
+          <span class="font-metropolis-bold">
+            University of Makati's College of Computing and Information
+            Sciences.
+          </span>
+          This event celebrates the best and brightest young minds in the field of
+          information technology. This prestigious competition is open to students
+          from all over the country, and features a variety of challenging tasks
+          in areas such as programming, cybersecurity, web page design, and more.
+          This year's competition is expected to be even more competitive than ever
+          before, with new challenges and a greater focus on real-world problem solving.
+          The IT Olympics is a great way to celebrate the achievements of excellent
+          IT students and to inspire the next generation of innovators.
+        </p>
+      </section>
+
+      <section class="py-10 md:py-20 flex gap-20">
+        <div class="">
+          <span class="text-sm"> About the </span>
+          <h2 class="font-metropolis-bold text-xl md:text-2xl lg:text-4xl mb-5">
+            College of Computing and Information Sciences
+          </h2>
+
+          <p class="text-justify text-sm md:text-base">
+            The College of Computing and Information Sciences (CCIS) is the
+            leading college in ICT education programs of the university by
+            providing competitive, relevant and functional IT Curriculum
+            responsive to the needs of the industrial and business
+            organizations.
+          </p>
+        </div>
+
+        <Image src={ccisLogo} alt="CCIS Logo" class="hidden md:block w-40 h-40 lg:w-60 lg:h-60" />
+      </section>
+
+      <section class="py-10 md:py-20">
+        <h2 class="font-metropolis-bold text-xl md:text-2xl lg:text-4xl mb-5">The college aims to:</h2>
+
+        <ul class="list-disc pl-4 mb-5 text-sm md:text-base">
+          <li>Develop, implement and revise IT Education Programs.</li>
+
+          <li>
+            Subject the IT Education Programs to government recognition and
+            accreditation by authorized agencies.
+          </li>
+
+          <li>
+            Provide creativity, production and development programs to faculty
+            members and students.
+          </li>
+
+          <li>Engage in Information Technology / Computer Science research.</li>
+
+          <li>
+            Promote Information and Communications Technology literacy training
+            through community extension services.
+          </li>
+
+          <li>
+            Establish linkages and networking to the industry and other
+            government agencies.
+          </li>
+
+          <li>Provide administrative services to the stakeholders.</li>
+
+          <li>
+            Engage in other relevant and sound curricular and extra-curricular
+            endeavors.
+          </li>
+        </ul>
+
+        <p class="text-justify text-sm md:text-base">
+          Furthermore, the 
+          <span class="font-metropolis-bold">
+            College of Computing and Information Sciences
+          </span>
+          has also been instrumental with the 
+          <span class="font-metropolis-bold">
+            inclusion of the University of Makati in the 2023 World University
+            Rankings for Innovation (WURI) through the shortlist Innovative
+            Program (Rank 50 - 100).
+          </span>
+        </p>
+      </section>
+
+      <section class="py-10 md:py-20">
+        <h1 class="font-metropolis-bold text-xl md:text-2xl lg:text-4xl mb-5 text-center">
+          Recognitions of the University and College
+        </h1>
+
+        <div class="flex flex-col items-center md:flex-row gap-4 justify-center mb-4">
+          <Image
+            src={chedLogo}
+            alt="CHED Logo"
+            class="max-w-40 w-full object-cover"
+          />
+          <div class="">
+            <Image src={wuriLogo} alt="WURI Logo" class="object-cover" />
+          </div>
+        </div>
+
+        <Image src={ccisWuriCertificate} alt="CCIS WURI Certificate" class="mx-auto" />
+      </section>
+    </div>
+  </div>
+</Layout>

@@ -11,25 +11,25 @@ console.log("Hello, World!");
 
 <Layout>
   <HomeLayout>
-    <div class="absolute -bottom-20 z-10 left-0 p-[inherit]">
+    <div class="absolute -bottom-20 z-10 left-0 p-[inherit] w-1/2 hidden xl:block">
       <Image
         src={itsoTorch}
-        class="scale-150 origin-left"
+        class=" origin-left"
         alt="ITSO Torch"
         draggable="false"
       />
     </div>
 
-    <div class="flex items-center justify-end h-full z-10 relative">
+    <div class="flex items-center justify-center xl:justify-end h-full z-10 relative">
       <div>
         <Image
           src={itsoLogo}
-          class="object-cover max-w-3xl"
+          class="object-cover w-full max-w-xl xl:max-w-3xl"
           alt="IT Skills Olympics"
           draggable="false"
         />
 
-        <p class="font-metropolis-semibold text-2xl">
+        <p class="font-metropolis-semibold text-sm md:text-xl lg:text-2xl">
           Augmenting Security Towards the Techno-Utopia
         </p>
 

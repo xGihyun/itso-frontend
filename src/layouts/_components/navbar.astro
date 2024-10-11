@@ -1,11 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import { itsoUmakLogo, ccisLogo } from "@/assets/images";
-import {REGISTRATION_LINK} from "astro:env/client";
+import { REGISTRATION_LINK } from "astro:env/client";
 
 type Route = {
   path: string;
   name: string;
+  target?: string;
 };
 
 const ROUTES: Route[] = [
@@ -20,12 +21,19 @@ const ROUTES: Route[] = [
   {
     name: "Register",
     path: REGISTRATION_LINK,
+    target: "_blank",
   },
 ];
+
+let foo = false;
+
+if (Astro.url.pathname === "/about") {
+  foo = true;
+}
 ---
 
 <nav
-  class="fixed inset-0 z-[100] w-full flex h-20 px-20 justify-between items-center"
+  class={`fixed inset-0 z-[100] w-full flex h-20 px-5 md:px-20 justify-between items-center ${foo ? "bg-gradient-to-b from-black via-black/50" : ""}`}
 >
   <a href="/" class="flex flex-row gap-4">
     <Image
@@ -44,7 +52,11 @@ const ROUTES: Route[] = [
   <div class="h-full flex">
     {
       ROUTES.map((route) => (
-        <a href={route.path} class="h-full px-2 md:px-5 flex items-center">
+        <a
+          href={route.path}
+          class="h-full px-2 md:px-5 flex items-center"
+          target={route.target}
+        >
           {route.name}
         </a>
       ))
