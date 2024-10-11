@@ -1,9 +1,56 @@
 ---
+import { itsoLogo, itsoTorch, itsoBlueBg } from "@/assets/images";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { REGISTRATION_LINK } from "astro:env/client";
+import HomeLayout from "./_layouts/home.astro";
 
-console.log("Hello, World!")
+console.log("Hello, World!");
 ---
 
 <Layout>
-  <p>Hello There</p>
+  <HomeLayout>
+    <div class="absolute -bottom-20 z-10 left-0 p-[inherit]">
+      <Image
+        src={itsoTorch}
+        class="scale-150 origin-left"
+        alt="ITSO Torch"
+        draggable="false"
+      />
+    </div>
+
+    <div class="flex items-center justify-end h-full z-10 relative">
+      <div>
+        <Image
+          src={itsoLogo}
+          class="object-cover max-w-3xl"
+          alt="IT Skills Olympics"
+          draggable="false"
+        />
+
+        <p class="font-metropolis-semibold text-2xl">
+          Augmenting Security Towards the Techno-Utopia
+        </p>
+
+        <div class="space-x-4 mt-4">
+          <a
+            href={REGISTRATION_LINK}
+            class={buttonVariants({ class: "rounded-full" })}
+            target="_blank"
+            rel="noreferrer">Register</a
+          >
+          <a
+            href="/about"
+            class={buttonVariants({
+              variant: "outline",
+              class: "bg-transparent rounded-full",
+            })}
+          >
+            Know More
+          </a>
+        </div>
+      </div>
+    </div>
+  </HomeLayout>
 </Layout>

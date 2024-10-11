@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import { itsoUmakLogo, ccisLogo } from "@/assets/images";
+import {REGISTRATION_LINK} from "astro:env/client";
+
+type Route = {
+  path: string;
+  name: string;
+};
+
+const ROUTES: Route[] = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "About",
+    path: "/about",
+  },
+  {
+    name: "Register",
+    path: REGISTRATION_LINK,
+  },
+];
+---
+
+<nav
+  class="fixed inset-0 z-[100] w-full flex h-20 px-20 justify-between items-center"
+>
+  <a href="/" class="flex flex-row gap-4">
+    <Image
+      src={itsoUmakLogo}
+      class="object-cover max-h-full h-12 w-12"
+      alt="IT Skills Olympics"
+      draggable="false"
+    />
+    <Image
+      src={ccisLogo}
+      class="object-cover max-h-full h-12 w-12"
+      alt="IT Skills Olympics"
+      draggable="false"
+    />
+  </a>
+  <div class="h-full flex">
+    {
+      ROUTES.map((route) => (
+        <a href={route.path} class="h-full px-2 md:px-5 flex items-center">
+          {route.name}
+        </a>
+      ))
+    }
+  </div>
+</nav>

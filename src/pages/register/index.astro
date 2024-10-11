@@ -1,37 +1,30 @@
 ---
+export const prerender = false
+
 import Layout from "@/layouts/Layout.astro";
-import { RegisterForm } from "./_components/form";
-import type { CategoryResult } from "./types.ts";
-import { db } from "@/drizzle/db";
-import { CategoriesTable } from "@/drizzle/schema";
-import { Button } from "@/components/ui/button";
-import { GET } from "@/pages/api/sync";
+//import { RegisterForm } from "./_components/form";
+//import type { CategoryResult } from "./types.ts";
+//import { db } from "@/drizzle/db";
+//import { CategoriesTable } from "@/drizzle/schema";
 
-type LoadData = {
-  categories: CategoryResult[];
-};
+console.log("REDIRECTING")
+return Astro.redirect("/");
 
-const categories: CategoryResult[] = await db
-  .select({
-    id: CategoriesTable.id,
-    name: CategoriesTable.name,
-    minimumParticipantLimit: CategoriesTable.minimumParticipantLimit,
-    maximumParticipantLimit: CategoriesTable.maximumParticipantLimit,
-  })
-  .from(CategoriesTable);
-
-//async function syncTest() {
-//  const foo = await GET(Astro);
-//}
-//
-//syncTest();
+//const categories: CategoryResult[] = await db
+//  .select({
+//    id: CategoriesTable.id,
+//    name: CategoriesTable.name,
+//    minimumParticipantLimit: CategoriesTable.minimumParticipantLimit,
+//    maximumParticipantLimit: CategoriesTable.maximumParticipantLimit,
+//  })
+//  .from(CategoriesTable);
 ---
 
 <Layout title="Register">
   <div class="py-8">
     <div class="max-w-2xl mx-auto">
       <h1 class="text-4xl font-bold mb-10">Register</h1>
-      <RegisterForm {categories} client:load />
+      <!--<RegisterForm {categories} client:load />-->
     </div>
   </div>
 </Layout>

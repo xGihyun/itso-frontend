@@ -24,6 +24,10 @@ export default defineConfig({
           context: "server",
           access: "secret",
         }),
+        REGISTRATION_LINK: envField.string({
+          context: "client",
+          access: "public",
+        }),
       },
     },
   },

@@ -1,0 +1,20 @@
+---
+import { itsoBlueBg } from "@/assets/images";
+import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+---
+
+<Layout>
+  <div
+    class="relative px-20 h-[100svh] overflow-hidden bg-gradient-to-t from-secondary"
+  >
+    <Image
+      src={itsoBlueBg}
+      class="object-cover fixed -rotate-[30deg] -left-[60rem] -bottom-80 scale-[2.25] z-[1]"
+      alt="IT Skills Olympics"
+      draggable="false"
+    />
+
+    <slot />
+  </div>
+</Layout>
