@@ -6,25 +6,24 @@ import { Image } from "astro:assets";
 import { REGISTRATION_LINK } from "astro:env/client";
 import HomeLayout from "./_layouts/home.astro";
 
-console.log("Hello, World!");
 ---
 
 <Layout>
   <HomeLayout>
-    <div class="absolute -bottom-20 z-10 left-0 p-[inherit] w-1/2 hidden xl:block">
+    <div class="absolute -bottom-32 z-10 left-36 p-[inherit] w-1/2 hidden xl:block">
       <Image
         src={itsoTorch}
-        class=" origin-left"
+        class="w-full origin-left"
         alt="ITSO Torch"
         draggable="false"
       />
     </div>
 
-    <div class="flex items-center justify-center xl:justify-end h-full z-10 relative">
+    <div class="flex items-center justify-center xl:justify-end h-full z-10 md:-bottom-8 md:right-6 relative">
       <div>
         <Image
           src={itsoLogo}
-          class="object-cover w-full max-w-xl xl:max-w-3xl"
+          class="object-cover w-[90%] max-w-xl xl:max-w-3xl"
           alt="IT Skills Olympics"
           draggable="false"
         />
