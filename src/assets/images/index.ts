@@ -7,6 +7,19 @@ import itsoRobot from "@/assets/images/itso-robot.jpg";
 import ccisWuriCertificate from "@/assets/images/ccis-wuri-certificate.jpg";
 import wuriLogo from "@/assets/images/wuri-logo.webp";
 import chedLogo from "@/assets/images/ched-logo.png";
+import androidProductivityImg from "@/assets/images/android-productivity-img.jpg";
+import itQuiz from "@/assets/images/it-quiz-img.avif";
+import javaCodeImg from "@/assets/images/java-code-img.webp";
+import webDevImg from "@/assets/images/web-dev-img.jpg";
+import pcDisImg from "@/assets/images/pc-dis-img.jpg";
+import netProgImg from "@/assets/images/net-prog-img.jpg";
+import softDevImg from "@/assets/images/soft-dev-img.jpg";
+import cyberSecImg from "@/assets/images/cybersec-img.jpg";
+import digiElecImg from "@/assets/images/digital-elec-img.jpg";
+import esportImg from "@/assets/images/esport-img.jpg";
+import compNetImg from "@/assets/images/comp-net-img.avif";
+import pythonProgramming from "@/assets/images/pythonProgramming.jpg";
+import linuxSysAdmin from "@/assets/images/linuxSysAdmin.jpg";
 
 export {
   itsoUmakLogo,
@@ -18,4 +31,17 @@ export {
   ccisWuriCertificate,
   wuriLogo,
   chedLogo,
+  androidProductivityImg,
+  itQuiz,
+  javaCodeImg,
+  webDevImg,
+  pcDisImg,
+  netProgImg,
+  softDevImg,
+  cyberSecImg,
+  digiElecImg,
+  esportImg,
+  compNetImg,
+  pythonProgramming,
+  linuxSysAdmin,
 };
