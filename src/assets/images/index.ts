@@ -1,6 +1,6 @@
-import itsoUmakLogo from "@/assets/images/itso-umak-logo.png";
+import itsoUmakLogo from "@/assets/images/itso-umak-logo.webp";
 import itsoLogo from "@/assets/images/itso-logo.png";
-import ccisLogo from "@/assets/images/ccis-logo.png";
+import ccisLogo from "@/assets/images/ccis-logo.webp";
 import itsoTorch from "@/assets/images/itso-torch.png";
 import itsoBlueBg from "@/assets/images/itso-blue-bg.png";
 import itsoRobot from "@/assets/images/itso-robot.jpg";
@@ -20,6 +20,10 @@ import esportImg from "@/assets/images/esport-img.jpg";
 import compNetImg from "@/assets/images/comp-net-img.avif";
 import pythonProgramming from "@/assets/images/pythonProgramming.jpg";
 import linuxSysAdmin from "@/assets/images/linuxSysAdmin.jpg";
+import itsoBanner from "@/assets/images/itso-banner.jpg";
+import ncviLogo from "@/assets/images/ncvi-logo.png";
+import cebuanaLogo from "@/assets/images/cebuana-logo.png";
+import erovoutikaLogo from "@/assets/images/erovoutika-logo.png";
 
 export {
   itsoUmakLogo,
@@ -44,4 +48,8 @@ export {
   compNetImg,
   pythonProgramming,
   linuxSysAdmin,
+  itsoBanner,
+  ncviLogo,
+  cebuanaLogo,
+  erovoutikaLogo
 };

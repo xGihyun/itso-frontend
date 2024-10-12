@@ -15,6 +15,7 @@ import {
   pythonProgramming,
   linuxSysAdmin,
 } from "@/assets/images/";
+import { Badge } from "@/components/ui/badge";
 
 type Category = {
   image: ImageMetadata;
@@ -84,11 +85,11 @@ const CATEGORIES: Category[] = [
       <h1 class="text-4xl font-metropolis-black">Categories</h1>
     </header>
 
-    <div class="container px-20 flex flex-wrap gap-6 py-10">
+    <div class="container px-5 md:px-20 flex flex-wrap gap-6 py-10">
       {
-        CATEGORIES.map((item, index) => (
+        CATEGORIES.map((item) => (
           <div class="w-full sm:w-[calc(50%-12px)] h-24 bg-secondary relative rounded-lg grid place-items-center overflow-hidden group cursor-pointer ">
-            <div class="absolute w-full h-full bg-black/50 z-10 group-hover:bg-black/80 transition-all" />
+            <div class="absolute w-full h-full bg-black/60 z-10 group-hover:bg-black/80 transition-all" />
             <Image
               src={item.image}
               alt="Android"
@@ -97,14 +98,12 @@ const CATEGORIES: Category[] = [
             />
 
             {item.isNew ? (
-              <div class="absolute w-fit px-6 py-2 z-50 bg-green-500 rounded-full top-2 left-2 shadow-xl">
-                <span>NEW</span>
-              </div>
+              <Badge className="absolute top-2 left-2 z-10" variant="success">New</Badge>
             ) : (
               <div class="absolute" />
             )}
 
-            <span class="z-20 text-xl drop-shadow-xl font-bold cursor-pointer group-hover:scale-110 transition-transform">
+            <span class="z-20 text-sm md:text-base lg:text-xl drop-shadow-xl font-metropolis-semibold cursor-pointer group-hover:scale-110 transition-transform">
               {item.name}
             </span>
           </div>

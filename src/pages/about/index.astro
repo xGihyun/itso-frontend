@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import {
   ccisLogo,
-  itsoRobot,
+  itsoBanner,
   chedLogo,
   wuriLogo,
   ccisWuriCertificate,
@@ -13,22 +13,22 @@ import {
 <Layout title="About">
   <div class="bg-white">
     <header
-      class="relative h-80 w-full bg-primary flex justify-center items-end px-5 md:px-20"
+      class="relative h-60 sm:h-80 w-full bg-primary flex justify-center items-end px-5 md:px-20"
     >
       <div class="absolute h-full w-full overflow-hidden">
         <Image
-          src={itsoRobot}
-          alt="ITSO Robot"
+          src={itsoBanner}
+          alt="ITSO Banner"
           class="object-cover object-center w-full h-full absolute inset-0 brightness-50 blur-sm scale-105"
         />
       </div>
 
       <div
-        class="h-72 max-w-4xl w-full -mb-20 relative rounded-md overflow-hidden"
+        class="h-40 sm:h-60 md:h-72 max-w-4xl w-full -mb-20 relative rounded-md overflow-hidden"
       >
         <Image
-          src={itsoRobot}
-          alt="ITSO Robot"
+          src={itsoBanner}
+          alt="ITSO Banner"
           class="object-cover object-top w-full h-full"
         />
       </div>

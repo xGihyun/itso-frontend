@@ -1,16 +1,24 @@
 ---
-import { itsoLogo, itsoTorch, itsoBlueBg } from "@/assets/images";
+import {
+  itsoLogo,
+  itsoTorch,
+  itsoBlueBg,
+  cebuanaLogo,
+  erovoutikaLogo,
+  ncviLogo,
+} from "@/assets/images";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { REGISTRATION_LINK } from "astro:env/client";
 import HomeLayout from "./_layouts/home.astro";
-
 ---
 
 <Layout>
   <HomeLayout>
-    <div class="absolute -bottom-32 z-10 left-36 p-[inherit] w-1/2 hidden xl:block">
+    <div
+      class="absolute -bottom-32 z-10 left-36 p-[inherit] w-1/2 hidden xl:block"
+    >
       <Image
         src={itsoTorch}
         class="w-full origin-left"
@@ -19,7 +27,9 @@ import HomeLayout from "./_layouts/home.astro";
       />
     </div>
 
-    <div class="flex items-center justify-center xl:justify-end h-full z-10 md:-bottom-8 md:right-6 relative">
+    <div
+      class="flex items-center justify-center xl:justify-end h-full z-10 md:-bottom-8 md:right-6 relative"
+    >
       <div>
         <Image
           src={itsoLogo}
@@ -29,7 +39,7 @@ import HomeLayout from "./_layouts/home.astro";
         />
 
         <p class="font-metropolis-semibold text-sm md:text-xl lg:text-2xl">
-          Augmenting Security Towards the Techno-Utopia
+          "Augmenting Security Towards the Techno-Utopia"
         </p>
 
         <div class="space-x-4 mt-4">
@@ -48,6 +58,34 @@ import HomeLayout from "./_layouts/home.astro";
           >
             Know More
           </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-20 right-0 p-[inherit] flex flex-col gap-2 z-10">
+      <p class="text-sm">Sponsored by:</p>
+
+      <div class="flex gap-4 items-center">
+        <div class="w-24 h-10 flex items-center justify-center xl:w-36 xl:h-14">
+          <Image
+            src={cebuanaLogo}
+            class="max-w-full max-h-full object-contain"
+            alt="Cebuana Lhuillier Logo"
+          />
+        </div>
+        <div class="w-24 h-10 flex items-center justify-center xl:w-36 xl:h-14">
+          <Image
+            src={erovoutikaLogo}
+            class="max-w-full max-h-full object-contain"
+            alt="Erovoutika Electronics Logo"
+          />
+        </div>
+        <div class="w-10 h-10 flex items-center justify-center xl:w-14 xl:h-14">
+          <Image
+            src={ncviLogo}
+            class="max-w-full max-h-full object-contain"
+            alt="Networld Capital Ventures Incorporated Logo"
+          />
         </div>
       </div>
     </div>
